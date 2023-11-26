@@ -15,6 +15,13 @@ namespace D46S9S_HFT_2023241.Models
         [Required]
         public string Username { get; set; }
 
+        public virtual ICollection<Order> Orders { get; set; }
+        public User()
+        {
+
+            Orders = new HashSet<Order>();
+        }
+
         
     }
 }

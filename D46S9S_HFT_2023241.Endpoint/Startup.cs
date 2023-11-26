@@ -18,11 +18,14 @@ namespace D46S9S_HFT_2023241.Endpoint
         public void ConfigureServices(IServiceCollection services)
         {
             OrderDB a = new OrderDB();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -34,6 +37,7 @@ namespace D46S9S_HFT_2023241.Endpoint
             {
                 endpoints.MapGet("/", async context =>
                 {
+
                     await context.Response.WriteAsync("Hello World!");
                 });
             });

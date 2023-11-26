@@ -22,17 +22,20 @@ namespace D46S9S_HFT_2023241.Repository
         {
             if (!builder.IsConfigured)
             {
-                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Gembiczki Máté\Source\Repos\D46S9S_HFT_2023241\D46S9S_HFT_2023241.Repository\Database1.mdf;Integrated Security=True";
+                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Gembiczki Máté\Source\Repos\D46S9S_HFT_2023241\D46S9S_HFT_2023241.Repository\Database1.mdf;Integrated Security=True;MultipleActiveResultSets = true";
                 builder
-                .UseSqlServer(conn);
+                .UseSqlServer(conn).UseLazyLoadingProxies();
             }
+            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Order>(order => order
-            .HasOne<User>().WithMany().HasForeignKey(order => order.OrderId).OnDelete(DeleteBehavior.Cascade));
+            .HasOne(order => order.User).WithMany(users=>users.Orders).HasForeignKey(order => order.OrderId).OnDelete(DeleteBehavior.Cascade));
+
+
             modelBuilder.Entity<Order>(order => order
-            .HasOne<Product>().WithMany().HasForeignKey(order => order.ProductId).OnDelete(DeleteBehavior.Cascade));
+            .HasOne(order=>order.Products).WithMany(products=> products.Orders).HasForeignKey(order => order.ProductId).OnDelete(DeleteBehavior.Cascade));
 
             modelBuilder.Entity<Order>().HasData(new Order[]
             {

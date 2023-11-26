@@ -15,11 +15,15 @@ namespace D46S9S_HFT_2023241.Models
 
         [ForeignKey("User")]
         public int UserId { get; set; }
+        public  virtual User User { get; set; }
         
 
         [ForeignKey("Product")]
         public int ProductId { get; set; }
         
+        public virtual Product Products { get; set; }
+
+       
 
         public DateTime OrderDate { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using D46S9S_HFT_2023241.Models;
+using System;
 
 namespace D46S9S_HFT_2023241.Client
 {
@@ -6,7 +7,7 @@ namespace D46S9S_HFT_2023241.Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+           
         }
     }
 }
