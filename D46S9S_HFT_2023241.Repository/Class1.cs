@@ -31,6 +31,8 @@ namespace D46S9S_HFT_2023241.Repository
         {
             modelBuilder.Entity<Order>(order => order
             .HasOne<User>().WithMany().HasForeignKey(order => order.OrderId).OnDelete(DeleteBehavior.Cascade));
+            modelBuilder.Entity<Order>(order => order
+            .HasOne<Product>().WithMany().HasForeignKey(order => order.ProductId).OnDelete(DeleteBehavior.Cascade));
 
             modelBuilder.Entity<Order>().HasData(new Order[]
             {
