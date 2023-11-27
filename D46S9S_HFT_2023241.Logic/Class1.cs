@@ -3,6 +3,7 @@ using D46S9S_HFT_2023241.Repository;
 using D46S9S_HFT_2023241.Models;
 using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
+using System.Reflection.Metadata;
 
 namespace D46S9S_HFT_2023241.Logic
 {
@@ -62,7 +63,7 @@ namespace D46S9S_HFT_2023241.Logic
                    select new Data
                    {
 
-                       Count = g.Sum(t => t.ProductId),
+                       ID =( g.Sum(t => t.ProductId)) / g.Count(),
                        Users = g.Count(),
 
 
@@ -74,7 +75,7 @@ namespace D46S9S_HFT_2023241.Logic
         {
 
             public int Users { get; set; }
-            public int Count { get; set; }
+            public int ID { get; set; }
 
         }
 
