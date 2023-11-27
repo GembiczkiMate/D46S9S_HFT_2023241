@@ -22,9 +22,9 @@ namespace D46S9S_HFT_2023241.Repository
         {
             if (!builder.IsConfigured)
             {
-                string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Gembiczki Máté\Source\Repos\D46S9S_HFT_2023241\D46S9S_HFT_2023241.Repository\Database1.mdf;Integrated Security=True;MultipleActiveResultSets = true";
+                //string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Gembiczki Máté\Source\Repos\D46S9S_HFT_2023241\D46S9S_HFT_2023241.Repository\Database1.mdf;Integrated Security=True;MultipleActiveResultSets = true";
                 builder
-                .UseSqlServer(conn).UseLazyLoadingProxies();
+                .UseInMemoryDatabase("mydb").UseLazyLoadingProxies();
             }
             
         }
@@ -54,8 +54,8 @@ namespace D46S9S_HFT_2023241.Repository
             modelBuilder.Entity<Product>().HasData(new Product[]
             {
 
-                new Product{ProductId=1,ProductName="alma"},
-                new Product{ProductId=2, ProductName="körte"}
+                new Product{ProductId=1,ProductName="alma",Price= 200},
+                new Product{ProductId=2, ProductName="körte" ,Price = 600}
             });
         }
 

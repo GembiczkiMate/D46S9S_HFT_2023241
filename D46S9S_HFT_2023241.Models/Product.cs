@@ -12,6 +12,8 @@ namespace D46S9S_HFT_2023241.Models
     {
         [Key]
         public int ProductId { get; set; }
+        [Required]
+        public int Price { get; set; }
 
         [Required]
         public string ProductName { get; set; }
