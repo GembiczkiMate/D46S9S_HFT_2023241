@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace D46S9S_HFT_2023241.Logic
 {
-    internal class UserLogic : IUserLogic
+    public class UserLogic : IUserLogic
     {
 
         IRepository<User> rep;

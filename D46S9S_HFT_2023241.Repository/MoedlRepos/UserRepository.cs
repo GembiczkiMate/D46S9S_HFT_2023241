@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace D46S9S_HFT_2023241.Repository
 {
-    internal class UserRepository:Repository<User>,IRepository<User>
+    public class UserRepository:Repository<User>,IRepository<User>
     {
         public UserRepository(OrderDB db) : base(db)
         {

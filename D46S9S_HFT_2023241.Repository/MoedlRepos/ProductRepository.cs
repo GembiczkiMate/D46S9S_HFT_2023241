@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace D46S9S_HFT_2023241.Repository
 {
-    internal class ProductRepository:Repository<Product>,IRepository<Product>
+    public class ProductRepository:Repository<Product>,IRepository<Product>
     {
         public ProductRepository(OrderDB db) : base(db)
         {

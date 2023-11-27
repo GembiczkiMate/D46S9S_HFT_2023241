@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace D46S9S_HFT_2023241.Logic
 {
-    internal class ProductLogic : IProductLogic
+    public class ProductLogic : IProductLogic
     {
 
         IRepository<Product> rep;
