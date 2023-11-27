@@ -59,11 +59,11 @@ namespace D46S9S_HFT_2023241.Logic
         public IQueryable<Data> Datas()
         {
             return from x in this.rep.ReadAll()
-                   group x by x.Products.ProductName into g
+                   group x by x.Products.ProductId into g
                    select new Data
                    {
 
-                       ID =( g.Sum(t => t.ProductId)) / g.Count(),
+                       ID =g.Key,
                        Users = g.Count(),
 
 
