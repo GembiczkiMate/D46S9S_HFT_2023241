@@ -9,29 +9,29 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class UserController : ControllerBase
     {
         IOrderLogic logic;
 
-        public OrderController( IOrderLogic logic)
+        public UserController(IOrderLogic logic)
         {
-            this.logic = logic;   
+            this.logic = logic;
         }
-       
+
         [HttpGet]
         public IEnumerable<Order> ReadAll()
         {
             return this.logic.ReadAll();
         }
 
-        
+
         [HttpGet("{id}")]
         public Order Read(int id)
         {
             return this.logic.Read(id);
         }
 
-        
+
         [HttpPost]
         public void Create([FromBody] Order value)
         {
@@ -39,15 +39,15 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
             this.logic.Create(value);
         }
 
-        
+
         [HttpPut]
-        public void Update( [FromBody] Order value)
+        public void Update([FromBody] Order value)
         {
             this.logic.Update(value);
 
         }
 
-        
+
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

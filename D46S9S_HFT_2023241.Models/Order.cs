@@ -26,6 +26,26 @@ namespace D46S9S_HFT_2023241.Models
        
 
         public DateTime OrderDate { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            Order other = obj as Order;
+            if (other == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.OrderId == other.OrderId
+                && this.UserId == other.UserId
+                && this.ProductId == other.ProductId
+                && this.OrderDate == other.OrderDate;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.OrderId, this.UserId,this.ProductId,this.OrderDate);
+        }
     }
 
 

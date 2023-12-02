@@ -57,11 +57,12 @@ namespace D46S9S_HFT_2023241.Logic
         public IEnumerable<Data> Datas()
         {
             return from x in this.rep.ReadAll()
-                   group x by x.User.Username into g
+                   orderby x.ProductId
+                   group x by x.ProductId into g                   
                    select new Data
                    {
 
-                       Name =g.Key,
+                       Id =g.Key,
                        Users = g.Count(),
 
 
@@ -73,25 +74,45 @@ namespace D46S9S_HFT_2023241.Logic
         {
 
             public int Users { get; set; }
-            public string Name { get; set; }
+            public int Id { get; set; }
+            public override bool Equals(object obj)
+            {
+               Data other = obj as Data;
+                if (other == null)
+                {
+                    return false;
+                }                  
+                else
+                {
+                    return this.Id == other.Id
+                    && this.Users == other.Users;
+                }
+            }
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(this.Id, this.Users);
+            }
 
         }
 
         public IEnumerable<Order> OldesOrder() 
         {
-            return from x in rep.ReadAll()
-                   group x by x.OrderDate into g
-                   select g.First();
+            return (from x in rep.ReadAll()                    
+                    orderby x.OrderDate
+                    select x).Take(1);
         }
 
-        public IEnumerable<List<Order>> BuyersOfNuts()
+        public IEnumerable<int> BuyersOfNuts()
         {
 
             return from x in rep.ReadAll()
-                   where x.Products.ProductName == "nuts"
-                   group x by x.User.Username into g
-                   select g.ToList();
+                   where x.ProductId == 5
+                   select x.UserId;
                    
+                   
+                   
+
+
 
         }
 
