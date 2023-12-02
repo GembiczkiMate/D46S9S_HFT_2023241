@@ -4,6 +4,7 @@ using D46S9S_HFT_2023241.Models;
 using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
 using System.Reflection.Metadata;
+using System.Collections.Generic;
 
 namespace D46S9S_HFT_2023241.Logic
 {
@@ -33,9 +34,9 @@ namespace D46S9S_HFT_2023241.Logic
             this.rep.Delete(id);
 
         }
-        public void Read(int id)
+        public Order Read(int id)
         {
-            this.rep.Read(id);
+           return this.rep.Read(id);
 
         }
         public IQueryable<Order> ReadAll()
@@ -51,19 +52,16 @@ namespace D46S9S_HFT_2023241.Logic
         }
 
 
-        public double? AvgPrice() => this.rep.ReadAll().Average(t => t.Products.Price);
+        
 
-
-
-
-        public IQueryable<Data> Datas()
+        public IEnumerable<Data> Datas()
         {
             return from x in this.rep.ReadAll()
-                   group x by x.Products.ProductId into g
+                   group x by x.User.Username into g
                    select new Data
                    {
 
-                       ID =g.Key,
+                       Name =g.Key,
                        Users = g.Count(),
 
 
@@ -75,8 +73,42 @@ namespace D46S9S_HFT_2023241.Logic
         {
 
             public int Users { get; set; }
-            public int ID { get; set; }
+            public string Name { get; set; }
 
+        }
+
+        public IEnumerable<Order> OldesOrder() 
+        {
+            return from x in rep.ReadAll()
+                   group x by x.OrderDate into g
+                   select g.First();
+        }
+
+        public IEnumerable<List<Order>> BuyersOfNuts()
+        {
+
+            return from x in rep.ReadAll()
+                   where x.Products.ProductName == "nuts"
+                   group x by x.User.Username into g
+                   select g.ToList();
+                   
+
+        }
+
+        public IEnumerable<Order> MostBuys()
+        {
+            return from x in rep.ReadAll()
+                   group x by x.User into g
+                   select (Order)g.First();            
+        }
+
+
+        public IEnumerable<Order> MostSells()
+        {
+
+            return from x in rep.ReadAll()
+                   group x by x.ProductId into g
+                   select (Order)g.First();
         }
 
 
