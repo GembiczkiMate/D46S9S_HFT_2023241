@@ -116,20 +116,24 @@ namespace D46S9S_HFT_2023241.Logic
 
         }
 
-        public IEnumerable<Order> MostBuys()
+        public IEnumerable<int> MostBuys()
         {
-            return from x in rep.ReadAll()
-                   group x by x.User into g
-                   select (Order)g.First();            
+            return  from x in rep.ReadAll()
+                              group x by x.UserId into g
+                              orderby g.Count() descending
+                              select g.FirstOrDefault().UserId;
+                   
+                      
         }
 
 
-        public IEnumerable<Order> MostSells()
+        public IEnumerable<int> MostSells()
         {
 
-            return from x in rep.ReadAll()
+            return from x in rep.ReadAll()                   
                    group x by x.ProductId into g
-                   select (Order)g.First();
+                   orderby g.Count() descending
+                   select g.First().ProductId;
         }
 
 

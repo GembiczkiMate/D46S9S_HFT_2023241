@@ -36,7 +36,9 @@ namespace D46S9S_HFT_2023241.Test
                 new Order{OrderId=2,UserId=4,ProductId=2, OrderDate=DateTime.Parse("2023.11.11") },
                 new Order{OrderId=3,UserId=2,ProductId=5, OrderDate=DateTime.Parse("2023.04.05") },
                 new Order{OrderId=4,UserId=1,ProductId=1, OrderDate=DateTime.Parse("2023.03.01") },
-                new Order{OrderId=5,UserId=3,ProductId=3, OrderDate=DateTime.Parse("2023.12.01") }
+                new Order{OrderId=5,UserId=3,ProductId=3, OrderDate=DateTime.Parse("2023.12.01") },
+                new Order{OrderId=6,UserId=4,ProductId=3, OrderDate=DateTime.Parse("2023.12.01") }
+
 
             }.AsQueryable();
         }
@@ -116,6 +118,34 @@ namespace D46S9S_HFT_2023241.Test
             var act = logic.BuyersOfNuts().First();
 
            int exp = 2;
+
+
+            Assert.AreEqual(act, exp);
+
+
+
+        }
+        [Test]
+        public void MostBuysTest()
+        {
+
+            var act = logic.MostBuys().FirstOrDefault();
+
+            int exp = 4;
+
+
+            Assert.AreEqual(act, exp);
+
+
+
+        }
+        [Test]
+        public void MostSellsTest()
+        {
+
+            var act = logic.MostSells().FirstOrDefault();
+
+            int exp = 3;
 
 
             Assert.AreEqual(act, exp);
