@@ -7,33 +7,33 @@ using System.Collections.Generic;
 
 namespace D46S9S_HFT_2023241.Endpoint.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        IOrderLogic logic;
+        IUserLogic logic;
 
-        public UserController(IOrderLogic logic)
+        public UserController(IUserLogic logic)
         {
             this.logic = logic;
         }
 
         [HttpGet]
-        public IEnumerable<Order> ReadAll()
+        public IEnumerable<User> ReadAll()
         {
             return this.logic.ReadAll();
         }
 
 
         [HttpGet("{id}")]
-        public Order Read(int id)
+        public User Read(int id)
         {
             return this.logic.Read(id);
         }
 
 
         [HttpPost]
-        public void Create([FromBody] Order value)
+        public void Create([FromBody] User value)
         {
 
             this.logic.Create(value);
@@ -41,7 +41,7 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
 
 
         [HttpPut]
-        public void Update([FromBody] Order value)
+        public void Update([FromBody] User value)
         {
             this.logic.Update(value);
 

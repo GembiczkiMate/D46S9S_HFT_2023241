@@ -2,38 +2,39 @@
 using D46S9S_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace D46S9S_HFT_2023241.Endpoint.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
-        IOrderLogic logic;
+        IProductLogic logic;
 
-        public ProductController(IOrderLogic logic)
+        public ProductController(IProductLogic logic)
         {
             this.logic = logic;
         }
 
         [HttpGet]
-        public IEnumerable<Order> ReadAll()
+        public IEnumerable<Product> ReadAll()
         {
             return this.logic.ReadAll();
         }
 
 
         [HttpGet("{id}")]
-        public Order Read(int id)
+        public Product Read(int id)
         {
             return this.logic.Read(id);
         }
 
 
         [HttpPost]
-        public void Create([FromBody] Order value)
+        public void Create([FromBody] Product value)
         {
 
             this.logic.Create(value);
@@ -41,7 +42,7 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
 
 
         [HttpPut]
-        public void Update([FromBody] Order value)
+        public void Update([FromBody] Product value)
         {
             this.logic.Update(value);
 

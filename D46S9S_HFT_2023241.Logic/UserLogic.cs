@@ -34,9 +34,9 @@ namespace D46S9S_HFT_2023241.Logic
             this.rep.Delete(id);
 
         }
-        public void Read(int id)
+        public User Read(int id)
         {
-            this.rep.Read(id);
+           return this.rep.Read(id);
 
         }
         public IQueryable<User> ReadAll()

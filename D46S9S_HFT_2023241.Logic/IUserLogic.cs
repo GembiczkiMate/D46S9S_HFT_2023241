@@ -7,7 +7,7 @@ namespace D46S9S_HFT_2023241.Logic
     {
         void Create(User ord);
         void Delete(int id);
-        void Read(int id);
+        User Read(int id);
         IQueryable<User> ReadAll();
         void Update(User ord);
     }

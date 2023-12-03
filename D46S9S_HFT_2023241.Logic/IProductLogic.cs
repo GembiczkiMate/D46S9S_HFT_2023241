@@ -1,5 +1,6 @@
 ﻿using D46S9S_HFT_2023241.Models;
 using System.Linq;
+using System.Reflection;
 
 namespace D46S9S_HFT_2023241.Logic
 {
@@ -7,7 +8,7 @@ namespace D46S9S_HFT_2023241.Logic
     {
         void Create(Product ord);
         void Delete(int id);
-        void Read(int id);
+        Product Read(int id);
         IQueryable<Product> ReadAll();
         void Update(Product ord);
     }

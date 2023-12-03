@@ -52,11 +52,10 @@ namespace D46S9S_HFT_2023241.Endpoint
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "D46S9S_HFT_2023241.Endpoint v1"));
             }
 
-            app.UseRouting();
-            app.UseAuthentication();
+           
 
             app.UseExceptionHandler(c => c.Run(async context =>
             {
@@ -66,14 +65,20 @@ namespace D46S9S_HFT_2023241.Endpoint
                 var response = new { Msg = exception.Message };
                 await context.Response.WriteAsJsonAsync(response);
             }));
+            app.UseRouting();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
-                
+                endpoints.MapGet("/", async context =>
+                {
+                    endpoints.MapControllers();
+                });
 
-                    app.UseSwagger();
-                    
-                
+
+
+
+
             });
         }
         
