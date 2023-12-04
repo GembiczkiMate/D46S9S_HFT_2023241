@@ -250,6 +250,35 @@ namespace D46S9S_HFT_2023241.Test
 
 
         }
+        [Test]
+        public void OrderCreateTest()
+        {
+            var order = new Order { OrderId = 9 };
+            logic.Create(order);
+
+            mockOrderRepo.Verify(f => f.Create(order), Times.Once);
+
+        }
+        [Test]
+        public void OrderCreateFalseTest()
+        {
+            var order = new Order { OrderId = 9 ,OrderDate = DateTime.Parse("2025.11.13") };
+            
+            try
+            {
+                logic.Create(order);
+            }
+            catch 
+            {
+
+                
+            }
+
+            mockOrderRepo.Verify(f => f.Create(order), Times.Never );
+
+        }
+
+
 
     }
 }
