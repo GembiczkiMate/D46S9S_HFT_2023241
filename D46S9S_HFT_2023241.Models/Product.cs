@@ -23,6 +23,26 @@ namespace D46S9S_HFT_2023241.Models
             Orders = new HashSet<Order>();
         }
 
+        public override bool Equals(object obj)
+        {
+            Product other = obj as Product;
+            if (other == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.ProductName == other.ProductName
+                && this.Price == other.Price
+                && this.ProductId == other.ProductId;
+               
+            }
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.Price, this.ProductName, this.ProductId);
+        }
+
 
     }
 

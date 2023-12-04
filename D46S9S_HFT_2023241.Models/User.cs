@@ -21,7 +21,25 @@ namespace D46S9S_HFT_2023241.Models
 
             Orders = new HashSet<Order>();
         }
+        public override bool Equals(object obj)
+        {
+            User other = obj as User;
+            if (other == null)
+            {
+                return false;
+            }
+            else
+            {
+                return this.UserId == other.UserId
+                    &&
+                this.Username == other.Username;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.Username, this.UserId);
+        }
 
-        
+
     }
 }

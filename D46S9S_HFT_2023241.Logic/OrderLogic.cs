@@ -56,7 +56,7 @@ namespace D46S9S_HFT_2023241.Logic
 
         public IEnumerable<Data> Datas()
         {
-            return from x in this.rep.ReadAll()
+            return (from x in this.rep.ReadAll()
                    orderby x.ProductId
                    group x by x.ProductId into g                   
                    select new Data
@@ -66,7 +66,7 @@ namespace D46S9S_HFT_2023241.Logic
                        Users = g.Count(),
 
 
-                   };
+                   }).ToList();
 
         }
 
@@ -102,12 +102,13 @@ namespace D46S9S_HFT_2023241.Logic
                     select x).Take(1);
         }
 
-        public IEnumerable<int> BuyersOfNuts()
+        public IEnumerable<User> BuyersOfNuts()
         {
 
-            return from x in rep.ReadAll()
+            return (from x in rep.ReadAll()
                    where x.ProductId == 5
-                   select x.UserId;
+                   group x by x.User into g
+                   select g.Key).Take(1);
                    
                    
                    
@@ -116,24 +117,24 @@ namespace D46S9S_HFT_2023241.Logic
 
         }
 
-        public IEnumerable<int> MostBuys()
+        public IEnumerable<User> MostBuys()
         {
-            return  from x in rep.ReadAll()
-                              group x by x.UserId into g
-                              orderby g.Count() descending
-                              select g.FirstOrDefault().UserId;
+            return (from x in rep.ReadAll()
+                   group x by x.UserId into g
+                   orderby g.Count() descending
+                   select g.FirstOrDefault().User).Take(1);
                    
                       
         }
 
 
-        public IEnumerable<int> MostSells()
+        public IEnumerable<Product> MostSells()
         {
 
-            return from x in rep.ReadAll()                   
-                   group x by x.ProductId into g
+            return (from x in rep.ReadAll()                   
+                   group x by x.Products into g
                    orderby g.Count() descending
-                   select g.First().ProductId;
+                   select g.First().Products).Take(1);
         }
 
 
