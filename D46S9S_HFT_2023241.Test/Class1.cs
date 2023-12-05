@@ -277,6 +277,60 @@ namespace D46S9S_HFT_2023241.Test
             mockOrderRepo.Verify(f => f.Create(order), Times.Never );
 
         }
+        [Test]
+        public void UserCreateTest()
+        {
+            var userp = new User { UserId = 9 , Username= "Antal"};
+            user.Create(userp);
+
+            mockUserRepo.Verify(f => f.Create(userp), Times.Once);
+
+        }
+        [Test]
+        public void UserCreateFalseTest()
+        {
+            var usert = new User { UserId = 10,Username ="a"};
+
+            try
+            {
+                user.Create(usert);
+            }
+            catch
+            {
+
+
+            }
+
+            mockUserRepo.Verify(f => f.Create(usert), Times.Never);
+
+        }
+        [Test]
+        public void ProductCreateTest()
+        {
+            var prod = new Product { ProductName = "csavar", Price = 300 };
+            product.Create(prod);
+
+            mockProductRepo.Verify(f => f.Create(prod), Times.Once);
+
+        }
+        [Test]
+        public void ProductCreateFalseTest()
+        {
+            var prod = new Product {ProductName ="csavar", Price = -100 };
+
+            try
+            {
+                product.Create(prod);
+            }
+            catch
+            {
+
+
+            }
+
+            mockProductRepo.Verify(f => f.Create(prod), Times.Never);
+
+        }
 
 
 
