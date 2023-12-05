@@ -1,3 +1,4 @@
+using Castle.Core.Configuration;
 using D46S9S_HFT_2023241.Logic;
 using D46S9S_HFT_2023241.Models;
 using D46S9S_HFT_2023241.Repository;
@@ -20,8 +21,9 @@ namespace D46S9S_HFT_2023241.Endpoint
 {
     public class Startup
     {
+       
         // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -65,6 +67,7 @@ namespace D46S9S_HFT_2023241.Endpoint
                 var response = new { Msg = exception.Message };
                 await context.Response.WriteAsJsonAsync(response);
             }));
+
             app.UseRouting();
             app.UseAuthentication();
 
@@ -72,6 +75,7 @@ namespace D46S9S_HFT_2023241.Endpoint
             {
                 
                     endpoints.MapControllers();
+                
                 
 
 

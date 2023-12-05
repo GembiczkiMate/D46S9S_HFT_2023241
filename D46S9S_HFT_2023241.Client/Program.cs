@@ -1,74 +1,79 @@
 ﻿using ConsoleTools;
-using D46S9S_HFT_2023241.Logic;
 using D46S9S_HFT_2023241.Models;
-using D46S9S_HFT_2023241.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace D46S9S_HFT_2023241.Client
 {
     internal class Program
     {
-
-        static OrderLogic orderLogic;
-        static ProductLogic productLogic;
-        static UserLogic userLogic;
+        static RestService rest;
+        
 
 
         static void Create(string entity)
         {
-            Console.WriteLine(entity + " create");
-            Console.ReadLine();
+            if (entity == "User")
+            {
+                Console.Write("Enter User Name: ");
+                string name = Console.ReadLine();
+                rest.Post(new User() { Username = name }, "User");
+            }
         }
         static void List(string entity)
         {
             if (entity == "User")
             {
-                var items = userLogic.ReadAll();
-                Console.WriteLine("Id" + "\t" + "Name");
-                foreach (var item in items)
+                List<User> users = rest.Get<User>("User");
+                foreach (var item in users)
                 {
-                    Console.WriteLine(item.UserId + "\t" + item.Username);
+                    Console.WriteLine(item.UserId+ ": "+ item.Username);
                 }
             }
             Console.ReadLine();
         }
         static void Update(string entity)
         {
-            Console.WriteLine(entity + " update");
-            Console.ReadLine();
+            if (entity == "User")
+            {
+                Console.Write("Enter Actor's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                User one = rest.Get<User>(id, "User");
+                Console.Write($"New name [old: {one.Username}]: ");
+                string name = Console.ReadLine();
+                one.Username = name;
+                rest.Put(one, "User");
+            }
         }
         static void Delete(string entity)
         {
-            Console.WriteLine(entity + " delete");
-            Console.ReadLine();
+            if (entity == "User")
+            {
+                Console.Write("Enter User's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "User");
+            }
         }
 
         static void Main(string[] args)
         {
-            var ctx = new OrderDB();
 
-            var movieRepo = new OrderRepository(ctx);
-            var roleRepo = new UserRepository(ctx);
-            var actorRepo = new ProductRepository(ctx);
-
-
-            orderLogic = new OrderLogic(movieRepo);
-            userLogic = new UserLogic(roleRepo);
-            productLogic = new ProductLogic(actorRepo);
+            rest = new RestService("http://localhost:39354/", "swagger");
+            
 
             var userSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("Actor"))
-                .Add("Create", () => Create("Actor"))
-                .Add("Delete", () => Delete("Actor"))
-                .Add("Update", () => Update("Actor"))
+                .Add("List", () => List("User"))
+                .Add("Create", () => Create("User"))
+                .Add("Delete", () => Delete("User"))
+                .Add("Update", () => Update("User"))
                 .Add("Exit", ConsoleMenu.Close);
 
             var productSubMenu = new ConsoleMenu(args, level: 1)
-                .Add("List", () => List("Role"))
-                .Add("Create", () => Create("Role"))
-                .Add("Delete", () => Delete("Role"))
-                .Add("Update", () => Update("Role"))
+                .Add("List", () => List("Product"))
+                .Add("Create", () => Create("Product"))
+                .Add("Delete", () => Delete("Product"))
+                .Add("Update", () => Update("Product"))
                 .Add("Exit", ConsoleMenu.Close);
 
 
@@ -85,7 +90,6 @@ namespace D46S9S_HFT_2023241.Client
                 .Add("Order", () => orderSubMenu.Show())
                 .Add("User", () => userSubMenu.Show())
                 .Add("Product", () => productSubMenu.Show())
-
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();

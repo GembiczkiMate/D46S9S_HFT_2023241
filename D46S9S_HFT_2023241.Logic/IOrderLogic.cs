@@ -1,5 +1,7 @@
 ﻿using D46S9S_HFT_2023241.Models;
+using System.Collections.Generic;
 using System.Linq;
+using static D46S9S_HFT_2023241.Logic.OrderLogic;
 
 namespace D46S9S_HFT_2023241.Logic
 {
@@ -12,5 +14,11 @@ namespace D46S9S_HFT_2023241.Logic
         Order Read(int id);
         IQueryable<Order> ReadAll();
         void Update(Order ord);
+
+        IEnumerable<Order> OldesOrder();
+        IEnumerable<User> BuyersOfNuts();
+        IEnumerable<Data> Datas();
+        IEnumerable<User> MostBuys();
+        IEnumerable<Product> MostSells();
     }
 }

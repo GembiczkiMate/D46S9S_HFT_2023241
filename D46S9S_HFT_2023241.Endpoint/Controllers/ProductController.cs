@@ -8,7 +8,7 @@ using System.Net;
 
 namespace D46S9S_HFT_2023241.Endpoint.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
