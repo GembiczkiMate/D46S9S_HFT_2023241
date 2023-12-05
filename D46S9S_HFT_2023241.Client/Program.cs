@@ -2,6 +2,7 @@
 using D46S9S_HFT_2023241.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace D46S9S_HFT_2023241.Client
@@ -20,6 +21,25 @@ namespace D46S9S_HFT_2023241.Client
                 string name = Console.ReadLine();
                 rest.Post(new User() { Username = name }, "User");
             }
+            if (entity == "Order")
+            {
+                Console.Write("Enter the Id of the Product(1-5): ");
+                int prod = int.Parse(Console.ReadLine());
+                Console.Write("Enter the Id of the Product(1-5): ");
+                int user = int.Parse( Console.ReadLine());
+                int ordid = rest.Get<Order>("Order").Last().OrderId + 1;
+
+                rest.Post(new Order() { OrderId=ordid, ProductId = prod ,UserId = user, OrderDate = DateTime.Now}, "Order");
+            }
+            if (entity == "Product")
+            {
+                Console.Write("Enter Product Name: ");
+                string name = Console.ReadLine();
+                Console.Write("Enter Product Price (numbers only): ");
+                int price = int.Parse(Console.ReadLine());
+                rest.Post(new Product() { ProductName = name,Price = price  }, "Product");
+            }
+
         }
         static void List(string entity)
         {
@@ -31,13 +51,30 @@ namespace D46S9S_HFT_2023241.Client
                     Console.WriteLine(item.UserId+ ": "+ item.Username);
                 }
             }
+            if (entity == "Order")
+            {
+                List<Order> orders = rest.Get<Order>("Order");
+                foreach (var item in orders)
+                {
+                    Console.WriteLine(item.OrderId + ": " + item.ProductId+", "+ item.UserId+", "+item.OrderDate.ToShortDateString());
+                }
+            }
+            if (entity == "Product")
+            {
+                List<Product> products = rest.Get<Product>("Product");
+                foreach (var item in products )
+                {
+                    Console.WriteLine(item.ProductId + ": " + item.ProductName +", "+item.Price);
+                }
+            }
+
             Console.ReadLine();
         }
         static void Update(string entity)
         {
             if (entity == "User")
             {
-                Console.Write("Enter Actor's id to update: ");
+                Console.Write("Enter User's id to update: ");
                 int id = int.Parse(Console.ReadLine());
                 User one = rest.Get<User>(id, "User");
                 Console.Write($"New name [old: {one.Username}]: ");
@@ -45,6 +82,32 @@ namespace D46S9S_HFT_2023241.Client
                 one.Username = name;
                 rest.Put(one, "User");
             }
+            if (entity == "Order")
+            {
+                Console.Write("Enter Order's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Order one = rest.Get<Order>(id, "Order");
+                Console.Write($"New UserID [old: {one.UserId}]: ");                
+                int user = int.Parse(Console.ReadLine());
+                Console.Write($"New ProductID [old: {one.ProductId}]: ");
+                int prod = int.Parse(Console.ReadLine());
+                one.UserId = user;
+                one.ProductId = prod;
+                one.OrderDate = DateTime.Now;
+                one.OrderId = id;
+                rest.Put(one, "Order");
+            }
+            if (entity == "Product")
+            {
+                Console.Write("Enter Product's id to update: ");
+                int id = int.Parse(Console.ReadLine());
+                Product one = rest.Get<Product>(id, "Product");
+                Console.Write($"New name [old: {one.ProductName}]: ");
+                string name = Console.ReadLine();
+                one.ProductName = name;
+                rest.Put(one, "Product");
+            }
+
         }
         static void Delete(string entity)
         {
@@ -54,6 +117,19 @@ namespace D46S9S_HFT_2023241.Client
                 int id = int.Parse(Console.ReadLine());
                 rest.Delete(id, "User");
             }
+            if (entity == "Order")
+            {
+                Console.Write("Enter Order's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "Order");
+            }
+            if (entity == "Product")
+            {
+                Console.Write("Enter Product's id to delete: ");
+                int id = int.Parse(Console.ReadLine());
+                rest.Delete(id, "Product");
+            }
+
         }
 
         static void Main(string[] args)

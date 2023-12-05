@@ -122,7 +122,7 @@ namespace D46S9S_HFT_2023241.Logic
             return ((from x in rep.ReadAll()
                    group x by x.UserId into g
                    orderby g.Count() descending
-                   select g.FirstOrDefault().User).Take(1)).AsEnumerable();
+                   select g.FirstOrDefault().User).Take(1));
                    
                       
         }

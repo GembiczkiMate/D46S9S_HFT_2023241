@@ -13,82 +13,7 @@ using Moq;
 namespace D46S9S_HFT_2023241.Test
 {
     
-    //public class FakeU : IRepository<User>
-
-    //{
-    //    public void Create(User item)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public void Delete(int id)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public User Read(int id)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public IQueryable<User> ReadAll()
-    //    {
-    //        return new List<User>()
-    //        {
-    //           new User{UserId=1,Username="Bob" },
-    //            new User{UserId=2,Username="John"},
-    //            new User{UserId=3,Username="Adam"},
-    //            new User{UserId=4,Username="Bill"},
-    //            new User{UserId=5,Username="Josh"}
-
-
-    //        }.AsQueryable();
-    //    }
-
-    //    public void Update(User item)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
-    //public class Fake : IRepository<Order>
-
-    //{
-    //    public void Create(Order item)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public void Delete(int id)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public Order Read(int id)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-
-    //    public IQueryable<Order> ReadAll()
-    //    {
-    //        return new List<Order>()
-    //        {
-    //            new Order{OrderId=1,UserId=5,ProductId=4, OrderDate=DateTime.Parse("2023.05.12") },
-    //            new Order{OrderId=2,UserId=4,ProductId=2, OrderDate=DateTime.Parse("2023.11.11") },
-    //            new Order{OrderId=3,UserId=2,ProductId=5, OrderDate=DateTime.Parse("2023.04.05") },
-    //            new Order{OrderId=4,UserId=1,ProductId=1, OrderDate=DateTime.Parse("2023.03.01") },
-    //            new Order{OrderId=5,UserId=3,ProductId=3, OrderDate=DateTime.Parse("2023.12.01") },
-    //            new Order{OrderId=6,UserId=4,ProductId=3, OrderDate=DateTime.Parse("2023.12.01") }
-
-
-    //        }.AsQueryable();
-    //    }
-
-    //    public void Update(Order item)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
-
+    
 
     [TestFixture]
     public class Class1
@@ -244,7 +169,7 @@ namespace D46S9S_HFT_2023241.Test
 
             List<Product> exp = new List<Product> { new Product { ProductId = 3, ProductName = "hammer", Price = 500 } };
 
-
+            
             Assert.AreEqual(act, exp);
 
 
