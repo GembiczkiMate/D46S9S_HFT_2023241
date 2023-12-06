@@ -30,7 +30,7 @@ namespace D46S9S_HFT_2023241.Client
                 int user = int.Parse( Console.ReadLine());
                 int ordid = rest.Get<Order>("Order").Last().OrderId + 1;
 
-                rest.Post(new Order() { OrderId=ordid, ProductId = prod ,UserId = user, OrderDate = DateTime.Now}, "Order");
+                rest.Post(new Order() { OrderId = ordid, ProductId = prod ,UserId = user, OrderDate = DateTime.Now}, "Order");
             }
             if (entity == "Product")
             {
@@ -238,12 +238,20 @@ namespace D46S9S_HFT_2023241.Client
 
 
 
+
             var orderSubMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Order"))
                 .Add("Create", () => Create("Order"))
                 .Add("Delete", () => Delete("Order"))
-                .Add("Update", () => Update("Order"))
-                
+                .Add("Update", () => Update("Order"))                
+                .Add("Exit", ConsoleMenu.Close);
+
+            var NonCrudSubmenu = new ConsoleMenu(args,level:1)
+                .Add("GetDatas", () => GetDatas())
+                .Add("GetBuyerOfNuts", () => GetOldestOrder())
+                .Add("GetMostBuys", () => GetMostBusys())
+                .Add("GetMostSells", () => GetMostSells())
+                .Add("GetBuyersOfNuts", () => GetBuyersOfNuts())
                 .Add("Exit", ConsoleMenu.Close);
 
 
@@ -251,11 +259,7 @@ namespace D46S9S_HFT_2023241.Client
                 .Add("Order", () => orderSubMenu.Show())
                 .Add("User", () => userSubMenu.Show())
                 .Add("Product", () => productSubMenu.Show())
-                .Add("NCGetDatas",() => GetDatas())
-                .Add("NCGetBuyerOfNuts",() => GetOldestOrder())
-                .Add("NCGetMostBuys",()=>GetMostBusys())
-                .Add("NCGetMostSells", ()=>GetMostSells())
-                .Add("NCGetBuyersOfNuts",()=>GetBuyersOfNuts())
+                .Add("NonCrud",()=> NonCrudSubmenu.Show())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();
