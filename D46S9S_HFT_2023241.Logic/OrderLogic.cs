@@ -15,6 +15,7 @@ namespace D46S9S_HFT_2023241.Logic
     {
         
         IRepository<Order> rep;
+        
 
         public OrderLogic(IRepository<Order> rep)
         {
@@ -83,8 +84,8 @@ namespace D46S9S_HFT_2023241.Logic
         public IEnumerable<Data> Datas()
         {
             return (from x in this.rep.ReadAll()
-                   orderby x.Products.ProductName
-                   group x by x.ProductId into g                   
+                   orderby x.Products.ProductId
+                   group x by x.Products.ProductId into g                   
                    select new Data
                    {
                        Id =g.Key,
@@ -94,7 +95,7 @@ namespace D46S9S_HFT_2023241.Logic
 
         public IEnumerable<UO> UsersOrder()
         {
-            return (from x in this.rep.ReadAll()                                       
+            return (from x in this.rep.ReadAll()   
                     select new UO
                     {
                         UserId = x.User.UserId,
@@ -132,30 +133,15 @@ namespace D46S9S_HFT_2023241.Logic
 
 
 
-        public IEnumerable<Order> OldesOrder() 
+        public IEnumerable<Product> OldesOrder() 
         {
             var s = ((from y in rep.ReadAll()
                       orderby y.OrderDate
-                      select y.OrderDate).FirstOrDefault());
+                      select y).FirstOrDefault());
 
             return (from x in this.rep.ReadAll()
-                    where x.OrderDate == (((from y in rep.ReadAll()
-                                           orderby y.OrderDate
-                                           select y.OrderDate).ToList()).AsEnumerable().FirstOrDefault())
-                                          
-                    select new Order
-                    {
-                        
-                        ProductId=x.ProductId,
-                        OrderDate =x.OrderDate,
-                        OrderId =x.OrderId,
-                        UserId=x.UserId,
-                        
-                        
-
-
-
-                    }).AsEnumerable().ToList();
+                    where x.Equals(s)
+                    select x.Products);
         }
         public class Oldest
         {
@@ -189,17 +175,18 @@ namespace D46S9S_HFT_2023241.Logic
 
         public IEnumerable<int> BuyersOfNutsID()
         {              
-            return (from x in this.rep.ReadAll()
+           return (from x in this.rep.ReadAll()
                     where x.Products.ProductId ==5
                     orderby x.ProductId
                     group x by x.UserId into g
                     select g.Key).ToList();
+
+            
         }
-        
 
         public IEnumerable<User> MostBuysID()
         {
-            
+
 
 
 
@@ -208,8 +195,9 @@ namespace D46S9S_HFT_2023241.Logic
                                         group y by y.UserId into g
                                         orderby g.Count() descending
                                         select g.Key).FirstOrDefault())
-            select x.User).Distinct().AsEnumerable();
+                    select x.User).Distinct().AsEnumerable();
         }
+        
 
 
         public IEnumerable<Product> MostSellsID()

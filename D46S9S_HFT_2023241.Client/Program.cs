@@ -183,6 +183,7 @@ namespace D46S9S_HFT_2023241.Client
         static void GetBuyersOfNuts()
         {
             var result = rest.Get<int>("/NonCrud/GetBuyersOfNutsID");
+            
             List<User> users =new List<User>();
             for (int i = 0; i < result.Count; i++)
             {

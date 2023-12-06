@@ -53,7 +53,7 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
             return this.logic.UsersOrder();
         }
         [HttpGet]
-        public IEnumerable<Object> GetOldestOrder()
+        public IEnumerable<Product> GetOldestOrder()
         {
             return this.logic.OldesOrder();
         }

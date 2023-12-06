@@ -89,8 +89,13 @@ namespace D46S9S_HFT_2023241.Test
             {
                 new Data()
                 {
-                     Id = 2,
+                     Id = 1,
                      Users = 1
+                },
+                new Data()
+                {
+                    Id = 2,
+                    Users = 1
                 },
                 new Data()
                 {
@@ -99,17 +104,12 @@ namespace D46S9S_HFT_2023241.Test
                 },
                 new Data()
                 {
-                    Id = 5,
-                    Users = 1
-                },
-                new Data()
-                {
                     Id = 4,
                     Users = 1
                 },
                 new Data()
                 {
-                    Id = 1,
+                    Id = 5,
                     Users = 1
                 }
 
@@ -126,7 +126,7 @@ namespace D46S9S_HFT_2023241.Test
 
             var act = logic.OldesOrder();
 
-            List<Order> exp = new List<Order> { new Order {OrderId=4, UserId=1, ProductId = 1, OrderDate = DateTime.Parse("2023.03.01") } };
+            List<Product> exp = new List<Product> { new Product { ProductId = 1, ProductName="screws",Price =200} };
 
             
             Assert.AreEqual(act, exp);
