@@ -5,12 +5,14 @@ using System.Linq;
 using Microsoft.Extensions.Caching.Memory;
 using System.Reflection.Metadata;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Headers;
 
 namespace D46S9S_HFT_2023241.Logic
 {
     public class OrderLogic : IOrderLogic
     {
-
+        
         IRepository<Order> rep;
 
         public OrderLogic(IRepository<Order> rep)
@@ -102,39 +104,31 @@ namespace D46S9S_HFT_2023241.Logic
                     select x).Take(1);
         }
 
-        public IEnumerable<User> BuyersOfNuts()
-        {
-
-            return (from x in rep.ReadAll()
-                   where x.ProductId == 5
-                   group x by x.User into g
-                   select g.Key).Take(1);
-                   
-                   
-                   
-
-
-
+        public IEnumerable<int> BuyersOfNutsID()
+        {              
+            return (from x in this.rep.ReadAll()
+                    where x.ProductId ==5
+                    orderby x.ProductId
+                    group x by x.UserId into g
+                    select g.Key).ToList();
         }
+        
 
-        public IEnumerable<User> MostBuys()
+        public IEnumerable<int> MostBuysID()
         {
-            return ((from x in rep.ReadAll()
-                   group x by x.UserId into g
-                   orderby g.Count() descending
-                   select g.FirstOrDefault().User).Take(1));
-                   
-                      
+            return ((from x in this.rep.ReadAll()
+                     group x by x.UserId into g
+                     orderby g.Count() descending
+                     select g.Key).Take(1)).AsEnumerable();
         }
 
 
-        public IEnumerable<Product> MostSells()
-        {
-
-            return (from x in rep.ReadAll()                   
-                   group x by x.Products into g
-                   orderby g.Count() descending
-                   select g.First().Products).Take(1).AsEnumerable();
+        public IEnumerable<int> MostSellsID()
+        {       
+            return ((from x in this.rep.ReadAll()                            
+                            group x by x.ProductId into g
+                            orderby g.Count() descending
+                            select g.Key).Take(1)).AsEnumerable();
         }
 
 

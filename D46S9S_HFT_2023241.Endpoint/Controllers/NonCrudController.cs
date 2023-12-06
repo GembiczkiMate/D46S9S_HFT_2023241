@@ -25,21 +25,21 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<User> GetMostBuys()
+        public IEnumerable<int> GetMostBuysID()
         {
-            return this.logic.MostBuys();
+            return this.logic.MostBuysID();
         }
 
         
         [HttpGet]
-        public IEnumerable<Product> GetMostSells()
+        public IEnumerable<int> GetMostSellsID()
         {
-            return this.logic.MostSells().AsEnumerable();
+            return this.logic.MostSellsID();
         }
         [HttpGet]
-        public IEnumerable<User> GetBuyersOfNuts()
+        public IEnumerable<int> GetBuyersOfNutsID()
         {
-            return this.logic.BuyersOfNuts() as IEnumerable<User>;
+            return this.logic.BuyersOfNutsID();
         }
         [HttpGet]
         public IEnumerable<OrderLogic.Data> GetDatas()

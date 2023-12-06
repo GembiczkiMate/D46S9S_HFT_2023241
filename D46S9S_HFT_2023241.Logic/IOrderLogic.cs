@@ -16,9 +16,9 @@ namespace D46S9S_HFT_2023241.Logic
         void Update(Order ord);
 
         IEnumerable<Order> OldesOrder();
-        IEnumerable<User> BuyersOfNuts();
+        IEnumerable<int> BuyersOfNutsID();
         IEnumerable<Data> Datas();
-        IEnumerable<User> MostBuys();
-        IEnumerable<Product> MostSells();
+        IEnumerable<int> MostBuysID();
+        IEnumerable<int> MostSellsID();
     }
 }

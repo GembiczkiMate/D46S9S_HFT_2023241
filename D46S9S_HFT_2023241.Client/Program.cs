@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http.Headers;
 
 namespace D46S9S_HFT_2023241.Client
 {
@@ -65,6 +66,14 @@ namespace D46S9S_HFT_2023241.Client
                 foreach (var item in products )
                 {
                     Console.WriteLine(item.ProductId + ": " + item.ProductName +", "+item.Price);
+                }
+            }
+            if (entity == "User")
+            {
+                List<User> users = rest.Get<User>("User");
+                foreach (var item in users)
+                {
+                    Console.WriteLine(item.UserId + ": " + item.Username);
                 }
             }
 
@@ -131,7 +140,82 @@ namespace D46S9S_HFT_2023241.Client
             }
 
         }
+        static void GetOldestOrder()
+        {
+            var result = rest.Get<dynamic>("/NonCrud/GetOldestOrder");
+            
+                Console.WriteLine(result.FirstOrDefault());
+            
+            Console.ReadLine();
+         
 
+        }
+        static void GetDatas()
+        {
+            var result = rest.Get<dynamic>("/NonCrud/GetDatas");
+            
+            for (int i = 0; i < result.Count(); i++)
+            {
+                Console.WriteLine(result[i]);
+            }
+            
+            Console.ReadLine();  
+            
+            
+
+
+        }
+        static void GetBuyersOfNuts()
+        {
+            var result = rest.Get<int>("/NonCrud/GetBuyersOfNutsID");
+            List<User> users =new List<User>();
+            for (int i = 0; i < result.Count; i++)
+            {
+                            
+                users.Add(rest.Get<User>(result[i],"User"));
+            }
+            
+            for (int i = 0; i < result.Count(); i++)
+            {
+
+
+                Console.WriteLine(users[i].UserId +": "+ users[i].Username);
+            }
+
+            Console.ReadLine();
+
+
+
+
+        }
+        static void GetMostBusys()
+        {
+            var res = rest.Get<int>("/NonCrud/GetMostBuysID");
+            
+            User result = new User();            
+            result = rest.Get<User>(res[0], "User");
+            Console.WriteLine(result.UserId + ": " + result.Username);
+
+            
+            Console.ReadLine();
+
+
+
+
+        }
+
+        static void GetMostSells()
+        {
+            var res = rest.Get<int>("/NonCrud/GetMostSellsID");
+            Product result = new Product();
+            result = rest.Get<Product>(res[0], "Product");
+
+            Console.WriteLine(result.ProductId+": "+ result.ProductName+"-"+result.Price+" Ft");
+
+            Console.ReadLine();
+
+
+        }
         static void Main(string[] args)
         {
 
@@ -159,6 +243,7 @@ namespace D46S9S_HFT_2023241.Client
                 .Add("Create", () => Create("Order"))
                 .Add("Delete", () => Delete("Order"))
                 .Add("Update", () => Update("Order"))
+                
                 .Add("Exit", ConsoleMenu.Close);
 
 
@@ -166,6 +251,11 @@ namespace D46S9S_HFT_2023241.Client
                 .Add("Order", () => orderSubMenu.Show())
                 .Add("User", () => userSubMenu.Show())
                 .Add("Product", () => productSubMenu.Show())
+                .Add("NCGetDatas",() => GetDatas())
+                .Add("NCGetBuyerOfNuts",() => GetOldestOrder())
+                .Add("NCGetMostBuys",()=>GetMostBusys())
+                .Add("NCGetMostSells", ()=>GetMostSells())
+                .Add("NCGetBuyersOfNuts",()=>GetBuyersOfNuts())
                 .Add("Exit", ConsoleMenu.Close);
 
             menu.Show();

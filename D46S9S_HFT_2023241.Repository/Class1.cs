@@ -50,6 +50,7 @@ namespace D46S9S_HFT_2023241.Repository
                 new Order{OrderId=9,UserId=3,ProductId=4, OrderDate=DateTime.Parse("2023.12.01") },
                 new Order{OrderId=10,UserId=2,ProductId=5, OrderDate=DateTime.Parse("2023.08.30") },
                 new Order{OrderId=11,UserId=5,ProductId=2, OrderDate=DateTime.Parse("2023.11.11") },
+                new Order{OrderId=12,UserId=2,ProductId=5, OrderDate=DateTime.Parse("2023.11.11") },
 
 
 

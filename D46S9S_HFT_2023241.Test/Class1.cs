@@ -137,23 +137,9 @@ namespace D46S9S_HFT_2023241.Test
         public void BuyerNutsTest()
         {
 
-            var act = logic.BuyersOfNuts();
+            var act = logic.BuyersOfNutsID();
 
-          List<User> exp = new List<User> { new User { UserId = 2, Username = "John" } };
-
-
-            Assert.AreEqual(act, exp);
-
-
-
-        }
-        [Test]
-        public void MostBuysTest()
-        {
-
-            var act = logic.MostBuys();
-
-           List<User> exp = new List<User> { new User { UserId = 4, Username = "Bill" } };
+            List<int> exp = new List<int> {{ 2 } };
 
 
             Assert.AreEqual(act, exp);
@@ -162,13 +148,27 @@ namespace D46S9S_HFT_2023241.Test
 
         }
         [Test]
-        public void MostSellsTest()
+        public void MostBuysIDTest()
         {
 
-            var act = logic.MostSells();
+            var act = logic.MostBuysID().First();
 
-            List<Product> exp = new List<Product> { new Product { ProductId = 3, ProductName = "hammer", Price = 500 } };
+            int exp = 4;
 
+
+            Assert.AreEqual(act, exp);
+
+
+
+        }
+        [Test]
+        public void MostSellsIDTest()
+        {
+
+            var act = logic.MostSellsID().First();
+
+            int exp = 3;
+            //string exp = "hammer";
             
             Assert.AreEqual(act, exp);
 
