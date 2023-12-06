@@ -54,24 +54,6 @@ namespace D46S9S_HFT_2023241.Logic
         }
 
 
-        
-
-        public IEnumerable<Data> Datas()
-        {
-            return (from x in this.rep.ReadAll()
-                   orderby x.ProductId
-                   group x by x.ProductId into g                   
-                   select new Data
-                   {
-
-                       Id =g.Key,
-                       Users = g.Count(),
-
-
-                   }).ToList();
-
-        }
-
         public class Data
         {
 
@@ -79,11 +61,11 @@ namespace D46S9S_HFT_2023241.Logic
             public int Id { get; set; }
             public override bool Equals(object obj)
             {
-               Data other = obj as Data;
+                Data other = obj as Data;
                 if (other == null)
                 {
                     return false;
-                }                  
+                }
                 else
                 {
                     return this.Id == other.Id
@@ -97,6 +79,20 @@ namespace D46S9S_HFT_2023241.Logic
 
         }
 
+        public IEnumerable<Data> Datas()
+        {
+            return (from x in this.rep.ReadAll()
+                   orderby x.ProductId
+                   group x by x.ProductId into g                   
+                   select new Data
+                   {
+                       Id =g.Key,
+                       Users = g.Count(),
+                   }).ToList();
+        }
+
+       
+
         public IEnumerable<Order> OldesOrder() 
         {
             return (from x in rep.ReadAll()                    
@@ -107,7 +103,7 @@ namespace D46S9S_HFT_2023241.Logic
         public IEnumerable<int> BuyersOfNutsID()
         {              
             return (from x in this.rep.ReadAll()
-                    where x.ProductId ==5
+                    where x.Products.ProductId ==5
                     orderby x.ProductId
                     group x by x.UserId into g
                     select g.Key).ToList();

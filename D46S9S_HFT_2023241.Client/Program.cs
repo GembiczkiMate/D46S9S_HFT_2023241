@@ -248,7 +248,7 @@ namespace D46S9S_HFT_2023241.Client
 
             var NonCrudSubmenu = new ConsoleMenu(args,level:1)
                 .Add("GetDatas", () => GetDatas())
-                .Add("GetBuyerOfNuts", () => GetOldestOrder())
+                .Add("GetOldestOrder", () => GetOldestOrder())
                 .Add("GetMostBuys", () => GetMostBusys())
                 .Add("GetMostSells", () => GetMostSells())
                 .Add("GetBuyersOfNuts", () => GetBuyersOfNuts())
