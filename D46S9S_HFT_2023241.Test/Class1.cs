@@ -89,13 +89,8 @@ namespace D46S9S_HFT_2023241.Test
             {
                 new Data()
                 {
-                     Id = 1,
+                     Id = 2,
                      Users = 1
-                },
-                new Data()
-                {
-                    Id = 2,
-                    Users = 1
                 },
                 new Data()
                 {
@@ -104,14 +99,20 @@ namespace D46S9S_HFT_2023241.Test
                 },
                 new Data()
                 {
+                    Id = 5,
+                    Users = 1
+                },
+                new Data()
+                {
                     Id = 4,
                     Users = 1
                 },
                 new Data()
                 {
-                    Id = 5,
+                    Id = 1,
                     Users = 1
                 }
+
 
             };
             
@@ -125,7 +126,7 @@ namespace D46S9S_HFT_2023241.Test
 
             var act = logic.OldesOrder();
 
-            List<Order> exp = new List<Order> { new Order { OrderId = 4, UserId = 1, ProductId = 1, OrderDate = DateTime.Parse("2023.03.01") } };
+            List<Order> exp = new List<Order> { new Order {OrderId=4, UserId=1, ProductId = 1, OrderDate = DateTime.Parse("2023.03.01") } };
 
             
             Assert.AreEqual(act, exp);
@@ -151,9 +152,9 @@ namespace D46S9S_HFT_2023241.Test
         public void MostBuysIDTest()
         {
 
-            var act = logic.MostBuysID().First();
+            var act = logic.MostBuysID();
 
-            int exp = 4;
+            List<User> exp = new List<User>{ new User { UserId = 4, Username = "Bill" } };
 
 
             Assert.AreEqual(act, exp);
@@ -165,10 +166,9 @@ namespace D46S9S_HFT_2023241.Test
         public void MostSellsIDTest()
         {
 
-            var act = logic.MostSellsID().First();
+            var act = logic.MostSellsID();
 
-            int exp = 3;
-            //string exp = "hammer";
+            List<Product> exp = new List<Product> { new Product { ProductId = 3, ProductName = "hammer", Price = 500 } };
             
             Assert.AreEqual(act, exp);
 

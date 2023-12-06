@@ -2,6 +2,7 @@
 using D46S9S_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +26,14 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<int> GetMostBuysID()
+        public IEnumerable<User> GetMostBuysID()
         {
             return this.logic.MostBuysID();
         }
 
         
         [HttpGet]
-        public IEnumerable<int> GetMostSellsID()
+        public IEnumerable<Product> GetMostSellsID()
         {
             return this.logic.MostSellsID();
         }
@@ -47,7 +48,12 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
             return this.logic.Datas();
         }
         [HttpGet]
-        public IEnumerable<Order> GetOldestOrder()
+        public IEnumerable<OrderLogic.UO> GetUsersOrder()
+        {
+            return this.logic.UsersOrder();
+        }
+        [HttpGet]
+        public IEnumerable<Object> GetOldestOrder()
         {
             return this.logic.OldesOrder();
         }

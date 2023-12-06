@@ -7,6 +7,7 @@ using System.Reflection.Metadata;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
+using static D46S9S_HFT_2023241.Logic.OrderLogic;
 
 namespace D46S9S_HFT_2023241.Logic
 {
@@ -82,7 +83,7 @@ namespace D46S9S_HFT_2023241.Logic
         public IEnumerable<Data> Datas()
         {
             return (from x in this.rep.ReadAll()
-                   orderby x.ProductId
+                   orderby x.Products.ProductName
                    group x by x.ProductId into g                   
                    select new Data
                    {
@@ -91,13 +92,99 @@ namespace D46S9S_HFT_2023241.Logic
                    }).ToList();
         }
 
-       
+        public IEnumerable<UO> UsersOrder()
+        {
+            return (from x in this.rep.ReadAll()                                       
+                    select new UO
+                    {
+                        UserId = x.User.UserId,
+                        Username= x.User.Username,
+                        Prod = x.Products.ProductName
+
+                    }).ToList();
+        }
+        public class UO
+        {
+            public int UserId { get; set; }
+            public string Username { get; set; }
+            public string Prod { get; set; }
+
+            public override bool Equals(object obj)
+            {
+                UO other = obj as UO;
+                if (other == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.UserId == other.UserId
+                        && this.Username == other.Username
+                        && this.Prod == other.Prod;
+                  
+                }
+            }
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(this.UserId, this.Username,this.Prod);
+            }
+        }
+
+
 
         public IEnumerable<Order> OldesOrder() 
         {
-            return (from x in rep.ReadAll()                    
-                    orderby x.OrderDate
-                    select x).Take(1);
+            var s = ((from y in rep.ReadAll()
+                      orderby y.OrderDate
+                      select y.OrderDate).FirstOrDefault());
+
+            return (from x in this.rep.ReadAll()
+                    where x.OrderDate == (((from y in rep.ReadAll()
+                                           orderby y.OrderDate
+                                           select y.OrderDate).ToList()).AsEnumerable().FirstOrDefault())
+                                          
+                    select new Order
+                    {
+                        
+                        ProductId=x.ProductId,
+                        OrderDate =x.OrderDate,
+                        OrderId =x.OrderId,
+                        UserId=x.UserId,
+                        
+                        
+
+
+
+                    }).AsEnumerable().ToList();
+        }
+        public class Oldest
+        {
+            public DateTime Date { get; set; }
+            public string User { get; set; }
+            public string Product { get; set; }
+            public int Price { get; set; }
+            public override bool Equals(object obj)
+            {
+                Oldest other = obj as Oldest;
+                if (other == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return this.User == other.User
+                        && this.Product == other.Product
+                        && this.Price == other.Price
+                        && this.Date == other.Date;
+
+                }
+            }
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(this.User, this.Product, this.Price, this.Date);
+            }
+
+
         }
 
         public IEnumerable<int> BuyersOfNutsID()
@@ -110,25 +197,39 @@ namespace D46S9S_HFT_2023241.Logic
         }
         
 
-        public IEnumerable<int> MostBuysID()
+        public IEnumerable<User> MostBuysID()
         {
-            return ((from x in this.rep.ReadAll()
-                     group x by x.UserId into g
-                     orderby g.Count() descending
-                     select g.Key).Take(1)).AsEnumerable();
+            
+
+
+
+            return (from x in this.rep.ReadAll()
+                    where x.UserId == ((from y in this.rep.ReadAll()
+                                        group y by y.UserId into g
+                                        orderby g.Count() descending
+                                        select g.Key).FirstOrDefault())
+            select x.User).Distinct().AsEnumerable();
         }
 
 
-        public IEnumerable<int> MostSellsID()
-        {       
-            return ((from x in this.rep.ReadAll()                            
-                            group x by x.ProductId into g
-                            orderby g.Count() descending
-                            select g.Key).Take(1)).AsEnumerable();
+        public IEnumerable<Product> MostSellsID()
+        {
+                  
+
+
+
+            return (from x in this.rep.ReadAll()
+                    where x.ProductId == ((from y in this.rep.ReadAll()
+                                           group y by y.ProductId into g
+                                           orderby g.Count() descending
+                                           select g.Key).FirstOrDefault())
+                    select x.Products).Distinct().AsEnumerable();
         }
 
 
 
 
     }
+
+   
 }
