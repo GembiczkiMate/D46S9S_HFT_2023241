@@ -1,4 +1,5 @@
 using Castle.Core.Configuration;
+using D46S9S_HFT_2023241.Endpoint.Services;
 using D46S9S_HFT_2023241.Logic;
 using D46S9S_HFT_2023241.Models;
 using D46S9S_HFT_2023241.Repository;
@@ -21,7 +22,7 @@ namespace D46S9S_HFT_2023241.Endpoint
 {
     public class Startup
     {
-       
+
         // This method gets called by the runtime. Use this method to add services to the container.
 
         public void ConfigureServices(IServiceCollection services)
@@ -31,11 +32,13 @@ namespace D46S9S_HFT_2023241.Endpoint
             services.AddTransient<IRepository<Order>, OrderRepository>();
             services.AddTransient<IRepository<Product>, ProductRepository>();
             services.AddTransient<IRepository<User>, UserRepository>();
-          
+
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IProductLogic, ProductLogic>();
             services.AddTransient<IUserLogic, UserLogic>();
-           
+
+            services.AddSignalR();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -45,7 +48,7 @@ namespace D46S9S_HFT_2023241.Endpoint
 
         }
 
-        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
@@ -57,7 +60,7 @@ namespace D46S9S_HFT_2023241.Endpoint
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "D46S9S_HFT_2023241.Endpoint v1"));
             }
 
-           
+
 
             app.UseExceptionHandler(c => c.Run(async context =>
             {
@@ -73,10 +76,11 @@ namespace D46S9S_HFT_2023241.Endpoint
 
             app.UseEndpoints(endpoints =>
             {
-                
-                    endpoints.MapControllers();
-                
-                
+
+                endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
+
+
 
 
 
@@ -84,6 +88,6 @@ namespace D46S9S_HFT_2023241.Endpoint
 
             });
         }
-        
+
     }
 }
