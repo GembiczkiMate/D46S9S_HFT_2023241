@@ -5,28 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:D46S9S_HFT_2023241.WpfClient"
         mc:Ignorable="d"
-        Title="Actor Editor" Height="450" Width="800">
+        Title="Editor" Height="450" Width="800">
     <Window.DataContext>
         <local:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>            
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <ListBox ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <ListBox Grid.Row="0" Grid.Column="0"   ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Username}" />
+                    <Label  Content="{Binding Username}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Row="1" Grid.Column="0">
             <Label Content="Name" Background="LightBlue" Padding="10" />
-            <TextBox Text="{Binding SelectedUser.Username}" Padding="10" Margin="0,0,0,30" />
-            <Button Content="Create Actor" Command="{Binding CreateUserCommand}" Margin="10" Padding="10" />
-            <Button Content="Delete Actor" Command="{Binding CreateUserCommand}" Margin="10" Padding="10" />
-            <Button Content="Update Actor" Command="{Binding CreateUserCommand}" Margin="10" Padding="10" />
+            <TextBox Text="{Binding SelectedUser.Username}" Padding="10" />
+            <Button Content="Create User" Command="{Binding CreateUserCommand}"  Padding="10" Click="Button_Click" />
+            <Button Content="Delete User" Command="{Binding DeleteUserCommand}"  Padding="10" Click="Button_Click" />
+            <Button Content="Update User" Command="{Binding UpdateUserCommand}"  Padding="10" Click="Button_Click" />
+            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+        </StackPanel>
+
+        <ListBox Grid.Row="0" Grid.Column="1"   ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding ProductName}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Label Content="Name" Background="LightBlue" Padding="10" />
+            <TextBox Text="{Binding SelectedProduct.ProductName}" Padding="10"  />
+            <Button Content="Create Product" Command="{Binding CreateProductCommand}" Padding="10"  Click="Button_Click" />
+            <Button Content="Delete Product" Command="{Binding DeleteProductCommand}" Padding="10"  Click="Button_Click" />
+            <Button Content="Update Product" Command="{Binding UpdateProductCommand}" Padding="10"  Click="Button_Click" />
             <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
         </StackPanel>
     </Grid>

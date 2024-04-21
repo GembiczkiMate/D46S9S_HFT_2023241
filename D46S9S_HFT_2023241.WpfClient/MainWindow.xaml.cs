@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,22 @@ namespace D46S9S_HFT_2023241.WpfClient
     {
         public MainWindow()
         {
-            InitializeComponent();
+            
+            
+                InitializeComponent();
+            
+           
+
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+           
+            
+        }
+
+       
+
+       
     }
 }

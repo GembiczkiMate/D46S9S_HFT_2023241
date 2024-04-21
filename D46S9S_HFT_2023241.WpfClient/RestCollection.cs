@@ -17,7 +17,7 @@ namespace D46S9S_HFT_2023241.WpfClient
     {
         HttpClient client;
 
-        public RestService(string baseurl, string pingableEndpoint = "swagger")
+        public RestService(string baseurl, string pingableEndpoint = "/user")
         {
             bool isOk = false;
             do
