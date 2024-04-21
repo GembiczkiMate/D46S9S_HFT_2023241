@@ -30,9 +30,9 @@
         <StackPanel Grid.Row="1" Grid.Column="0">
             <Label Content="Username" Background="LightBlue" Padding="10" />
             <TextBox Text="{Binding SelectedUser.Username}" Padding="10" />
-            <Button Content="Create User" Command="{Binding CreateUserCommand}"  Padding="10" Click="Button_Click" />
-            <Button Content="Delete User" Command="{Binding DeleteUserCommand}"  Padding="10" Click="Button_Click" />
-            <Button Content="Update User" Command="{Binding UpdateUserCommand}"  Padding="10" Click="Button_Click" />
+            <Button Content="Create User" Command="{Binding CreateUserCommand}"  Padding="10"  />
+            <Button Content="Delete User" Command="{Binding DeleteUserCommand}"  Padding="10"  />
+            <Button Content="Update User" Command="{Binding UpdateUserCommand}"  Padding="10"  />
             <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
         </StackPanel>
 
@@ -46,9 +46,9 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <Label Content="Product" Background="LightBlue" Padding="10" />
             <TextBox Text="{Binding SelectedProduct.ProductName}" Padding="10"  />
-            <Button Content="Create Product" Command="{Binding CreateProductCommand}" Padding="10"  Click="Button_Click" />
-            <Button Content="Delete Product" Command="{Binding DeleteProductCommand}" Padding="10"  Click="Button_Click" />
-            <Button Content="Update Product" Command="{Binding UpdateProductCommand}" Padding="10"  Click="Button_Click" />
+            <Button Content="Create Product" Command="{Binding CreateProductCommand}" Padding="10"   />
+            <Button Content="Delete Product" Command="{Binding DeleteProductCommand}" Padding="10"   />
+            <Button Content="Update Product" Command="{Binding UpdateProductCommand}" Padding="10"   />
             <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
         </StackPanel>
 
@@ -66,8 +66,8 @@
             <Label Content="ProductID" Background="LightBlue" Padding="10" />
             <TextBox Text="{Binding SelectedOrder.ProductId}" Padding="10"  />
             <Button Content="Create Order" Command="{Binding CreateOrderCommand}" Padding="10"  Click="Button_Click" />
-            <Button Content="Delete Order" Command="{Binding DeleteOrderCommand}" Padding="10"  Click="Button_Click" />
-            <Button Content="Update Order" Command="{Binding UpdateOrderCommand}" Padding="10"  Click="Button_Click" />
+            <Button Content="Delete Order" Command="{Binding DeleteOrderCommand}" Padding="10"   />
+            <Button Content="Update Order" Command="{Binding UpdateOrderCommand}" Padding="10"   />
             <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
         </StackPanel>
     </Grid>

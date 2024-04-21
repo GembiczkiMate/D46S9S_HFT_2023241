@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace D46S9S_HFT_2023241.WpfClient
 {
@@ -223,7 +224,7 @@ namespace D46S9S_HFT_2023241.WpfClient
                 });
 
                 selectedProduct = new Product();
-
+                int i = 1;
                 
                 CreateOrderCommand = new RelayCommand(() =>
                 {
@@ -232,13 +233,13 @@ namespace D46S9S_HFT_2023241.WpfClient
                     {
                         ProductId = selectedOrder.ProductId,
                         UserId = selectedOrder.UserId,
-                        OrderId = Orders.Count()+1,
+                        OrderId = Orders.Count()+i,                       
                         OrderDate = DateTime.Now
 
 
 
                     });
-                    
+                    i++;
 ;
                 });
 
