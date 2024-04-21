@@ -41,8 +41,7 @@ namespace D46S9S_HFT_2023241.WpfClient
                     };
                     OnPropertyChanged();
                     (DeleteUserCommand as RelayCommand).NotifyCanExecuteChanged();
-                    (CreateUserCommand as RelayCommand).NotifyCanExecuteChanged();
-                    (UpdateUserCommand as RelayCommand).NotifyCanExecuteChanged();
+                
                 }
                 
             }
@@ -66,8 +65,37 @@ namespace D46S9S_HFT_2023241.WpfClient
                     };
                     OnPropertyChanged();
                     (DeleteProductCommand as RelayCommand).NotifyCanExecuteChanged();
-                    (CreateProductCommand as RelayCommand).NotifyCanExecuteChanged();
-                    (UpdateProductCommand as RelayCommand).NotifyCanExecuteChanged();
+                   
+                }
+
+            }
+        }
+
+        public RestCollection<Order> Orders { get; set; }
+
+        private Order selectedOrder;
+
+        public Order SelectedOrder
+        {
+            get { return selectedOrder; }
+            set
+            {
+                if (value != null)
+                {
+                    selectedOrder = new Order()
+                    {
+                        OrderId = value.OrderId,
+                        UserId = value.UserId,
+                        ProductId = value.ProductId,
+                        OrderDate = value.OrderDate
+                        
+                        
+                        
+                    };
+                    OnPropertyChanged();
+                    (DeleteOrderCommand as RelayCommand).NotifyCanExecuteChanged();
+                   
+
                 }
 
             }
@@ -89,6 +117,12 @@ namespace D46S9S_HFT_2023241.WpfClient
 
         public ICommand UpdateProductCommand { get; set; }
 
+        public ICommand CreateOrderCommand { get; set; }
+
+        public ICommand DeleteOrderCommand { get; set; }
+
+        public ICommand UpdateOrderCommand { get; set; }
+
 
 
         public static bool IsInDesignMode
@@ -107,6 +141,7 @@ namespace D46S9S_HFT_2023241.WpfClient
             {
                 Users = new RestCollection<User>("http://localhost:39354/", "user", "hub");
                 Products = new RestCollection<Product>("http://localhost:39354/", "product", "hub");
+                Orders = new RestCollection<Order>("http://localhost:39354/", "order", "hub");
 
 
                 CreateUserCommand = new RelayCommand(() =>
@@ -189,6 +224,51 @@ namespace D46S9S_HFT_2023241.WpfClient
 
                 selectedProduct = new Product();
 
+                
+                CreateOrderCommand = new RelayCommand(() =>
+                {
+                    
+                    Orders.Add(new Order()
+                    {
+                        ProductId = selectedOrder.ProductId,
+                        UserId = selectedOrder.UserId,
+                        OrderId = Orders.Count()+1,
+                        OrderDate = DateTime.Now
+
+
+
+                    });
+                    
+;
+                });
+
+                UpdateOrderCommand = new RelayCommand(() =>
+                {
+                    try
+                    {
+                        Orders.Update(selectedOrder);
+
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        ErrorMessage = ex.Message;
+                    }
+
+                });
+
+                DeleteOrderCommand = new RelayCommand(() =>
+                {
+                    Orders.Delete(selectedOrder.OrderId);
+
+
+                },
+                () =>
+                {
+                    return selectedOrder != null;
+
+                });
+
+                selectedOrder = new Order();
 
             }
 
