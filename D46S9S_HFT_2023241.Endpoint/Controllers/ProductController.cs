@@ -2,6 +2,8 @@
 using D46S9S_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.SignalR;
+using D46S9S_HFT_2023241.Endpoint.Services;
 using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,10 +15,12 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
     public class ProductController : ControllerBase
     {
         IProductLogic logic;
+        IHubContext<SignalRHub> hub;
 
-        public ProductController(IProductLogic logic)
+        public ProductController(IProductLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         [HttpGet]
@@ -38,6 +42,7 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         {
 
             this.logic.Create(value);
+            this.hub.Clients.All.SendAsync("ProductCreated", value);
         }
 
 
@@ -45,7 +50,7 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         public void Update([FromBody] Product value)
         {
             this.logic.Update(value);
-
+            this.hub.Clients.All.SendAsync("ProductUpdated", value);
         }
 
 
@@ -53,7 +58,9 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         public void Delete(int id)
         {
 
+            var productToDelete = this.logic.Read(id);
             this.logic.Delete(id);
+            this.hub.Clients.All.SendAsync("ProductDeleted", productToDelete);
         }
     }
 }

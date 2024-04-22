@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <ListBox Grid.Row="0" Grid.Column="0"   ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" >
             <ListBox.ItemTemplate>
@@ -28,12 +28,12 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Label Content="Username" Background="LightBlue" Padding="10" />
-            <TextBox Text="{Binding SelectedUser.Username}" Padding="10" />
-            <Button Content="Create User" Command="{Binding CreateUserCommand}"  Padding="10"  />
-            <Button Content="Delete User" Command="{Binding DeleteUserCommand}"  Padding="10"  />
-            <Button Content="Update User" Command="{Binding UpdateUserCommand}"  Padding="10"  />
-            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+            <Label Content="Username" Background="LightBlue" Padding="5" />
+            <TextBox Text="{Binding SelectedUser.Username}" Padding="5" />
+            <Button Content="Create User" Command="{Binding CreateUserCommand}"  Padding="5"  />
+            <Button Content="Delete User" Command="{Binding DeleteUserCommand}"  Padding="5"  />
+            <Button Content="Update User" Command="{Binding UpdateUserCommand}"  Padding="5"  />
+            
         </StackPanel>
 
         <ListBox Grid.Row="0" Grid.Column="1"   ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" >
@@ -44,13 +44,20 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Label Content="Product" Background="LightBlue" Padding="10" />
-            <TextBox Text="{Binding SelectedProduct.ProductName}" Padding="10"  />
-            <Button Content="Create Product" Command="{Binding CreateProductCommand}" Padding="10"   />
-            <Button Content="Delete Product" Command="{Binding DeleteProductCommand}" Padding="10"   />
-            <Button Content="Update Product" Command="{Binding UpdateProductCommand}" Padding="10"   />
-            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+            <Label Content="Product" Background="LightBlue" Padding="5" />
+            <TextBox Text="{Binding SelectedProduct.ProductName}" Padding="5"  />
+            <Label Content="Price" Background="LightBlue" Padding="5" />
+            <TextBox Text="{Binding SelectedProduct.Price}" Padding="5"  />
+            <Button Content="Create Product" Command="{Binding CreateProductCommand}" Padding="5"   />
+            <Button Content="Delete Product" Command="{Binding DeleteProductCommand}" Padding="5"   />
+            <Button Content="Update Product" Command="{Binding UpdateProductCommand}" Padding="5"   />
+            
         </StackPanel>
+        
+                   
+                
+            
+      
 
 
         <ListBox Grid.Row="0" Grid.Column="2"   ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" >
@@ -61,14 +68,21 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="1" Grid.Column="2">
-            <Label Content="UserID" Background="LightBlue" Padding="10" />
-            <TextBox Text="{Binding SelectedOrder.UserId}" Padding="10"  />
-            <Label Content="ProductID" Background="LightBlue" Padding="10" />
-            <TextBox Text="{Binding SelectedOrder.ProductId}" Padding="10"  />
-            <Button Content="Create Order" Command="{Binding CreateOrderCommand}" Padding="10"  Click="Button_Click" />
-            <Button Content="Delete Order" Command="{Binding DeleteOrderCommand}" Padding="10"   />
-            <Button Content="Update Order" Command="{Binding UpdateOrderCommand}" Padding="10"   />
-            <Label Content="{Binding ErrorMessage}" FontSize="18" Foreground="Red" HorizontalContentAlignment="Center" />
+            <Label Content="UserID" Background="LightBlue" Padding="5" />
+            <TextBox Text="{Binding SelectedOrder.UserId}" Padding="5"  />
+            <Label Content="ProductID" Background="LightBlue" Padding="5" />
+            <TextBox Text="{Binding SelectedOrder.ProductId}" Padding="5"  />
+            <Button Content="Create Order" Command="{Binding CreateOrderCommand}" Padding="5"  Click="Button_Click" />
+            <Button Content="Delete Order" Command="{Binding DeleteOrderCommand}" Padding="5"   />
+            <Button Content="Update Order" Command="{Binding UpdateOrderCommand}" Padding="5"   />
+            
         </StackPanel>
+
+        <Button Grid.Column="3" Grid.Row="1" Content="Oldest Order" FontSize="20" Click="Button_Click"/>
+
+        <Border Grid.Column="3" Grid.Row="0" Background="ForestGreen"/>
+
+
+
     </Grid>
 </Window>

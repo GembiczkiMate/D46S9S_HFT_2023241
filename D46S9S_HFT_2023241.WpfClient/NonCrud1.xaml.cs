@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,38 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace D46S9S_HFT_2023241.WpfClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for NonCrud1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class NonCrud1 : Window
     {
-        public MainWindow()
+        public NonCrud1()
         {
-            
-            
-                InitializeComponent();
-            
-           
-
+            InitializeComponent();
         }
-        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NonCrud1 ncWindow = new NonCrud1();
+            MainWindow mainWindow = new MainWindow();
 
-            ncWindow.Show();
+            mainWindow.Show();
             Close();
-
         }
-        
-        
-        
-        
     }
 }

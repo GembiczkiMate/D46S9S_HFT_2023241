@@ -2,6 +2,8 @@
 using D46S9S_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.SignalR;
+using D46S9S_HFT_2023241.Endpoint.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,10 +14,12 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
     public class OrderController : ControllerBase
     {
         IOrderLogic logic;
+        IHubContext<SignalRHub> hub;
 
-        public OrderController( IOrderLogic logic)
+        public OrderController( IOrderLogic logic, IHubContext<SignalRHub> hub)
         {
-            this.logic = logic;   
+            this.logic = logic;
+            this.hub = hub;
         }
        
         [HttpGet]
@@ -37,6 +41,7 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         {
 
             this.logic.Create(value);
+            this.hub.Clients.All.SendAsync("OrderCreated", value);
         }
 
         
@@ -44,7 +49,7 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         public void Update( [FromBody] Order value)
         {
             this.logic.Update(value);
-
+            this.hub.Clients.All.SendAsync("OrderUpdated", value);
         }
 
         
@@ -52,7 +57,9 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         public void Delete(int id)
         {
 
+            var orderToDelete = this.logic.Read(id);
             this.logic.Delete(id);
+            this.hub.Clients.All.SendAsync("OrderDeleted", orderToDelete);
         }
 
         

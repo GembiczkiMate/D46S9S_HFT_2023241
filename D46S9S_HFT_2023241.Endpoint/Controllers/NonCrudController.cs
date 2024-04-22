@@ -1,6 +1,8 @@
-﻿using D46S9S_HFT_2023241.Logic;
+﻿using D46S9S_HFT_2023241.Endpoint.Services;
+using D46S9S_HFT_2023241.Logic;
 using D46S9S_HFT_2023241.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Concurrent;
@@ -18,11 +20,13 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         // GET: api/<NonCrudController>
 
         IOrderLogic logic;
+        IHubContext<SignalRHub> hub;
 
-        
-        public NonCrudController(IOrderLogic logic)
+
+        public NonCrudController(IOrderLogic logic, IHubContext<SignalRHub> hub)
         {
             this.logic = logic;
+            this.hub = hub;
         }
 
         [HttpGet]

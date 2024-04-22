@@ -9,19 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace D46S9S_HFT_2023241.WpfClient
 {
     public class MainWindowViewModel : ObservableRecipient
     {
-        private string errorMessage;
 
-        public string ErrorMessage
-        {
-            get { return errorMessage; }
-            set { SetProperty(ref errorMessage, value); }
-        }
+
+        
 
 
         public RestCollection<User> Users { get; set; }
@@ -62,6 +58,7 @@ namespace D46S9S_HFT_2023241.WpfClient
                     selectedProduct = new Product()
                     {
                         ProductName = value.ProductName,
+                        Price = value.Price,
                         ProductId = value.ProductId
                     };
                     OnPropertyChanged();
@@ -112,11 +109,13 @@ namespace D46S9S_HFT_2023241.WpfClient
 
         public ICommand UpdateUserCommand { get; set; }
 
+
         public ICommand CreateProductCommand { get; set; }
 
         public ICommand DeleteProductCommand { get; set; }
 
         public ICommand UpdateProductCommand { get; set; }
+
 
         public ICommand CreateOrderCommand { get; set; }
 
@@ -135,6 +134,10 @@ namespace D46S9S_HFT_2023241.WpfClient
             }
         }
 
+        public List<User> NonCrud { get; set; }
+        public List<Product> NonCrud1 { get; set; }
+
+
 
         public MainWindowViewModel()
         {
@@ -143,6 +146,11 @@ namespace D46S9S_HFT_2023241.WpfClient
                 Users = new RestCollection<User>("http://localhost:39354/", "user", "hub");
                 Products = new RestCollection<Product>("http://localhost:39354/", "product", "hub");
                 Orders = new RestCollection<Order>("http://localhost:39354/", "order", "hub");
+
+                NonCrud = new RestService("http://localhost:39354/").Get<User>("NonCrud/GetMostBuysID");
+                NonCrud1 = new RestService("http://localhost:39354/").Get<Product>("NonCrud/GetMostBuysID");
+
+
 
 
                 CreateUserCommand = new RelayCommand(() =>
@@ -159,15 +167,12 @@ namespace D46S9S_HFT_2023241.WpfClient
 
                 UpdateUserCommand = new RelayCommand(() =>
                 {
-                    try
-                    {
+                    
+                    
                         Users.Update(SelectedUser);
                         
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        ErrorMessage = ex.Message;
-                    }
+                    
+                   
                     
                 });
 
@@ -181,6 +186,7 @@ namespace D46S9S_HFT_2023241.WpfClient
                 {
                     return SelectedUser != null;
                     
+                    
                 });
 
                 SelectedUser = new User();
@@ -189,7 +195,8 @@ namespace D46S9S_HFT_2023241.WpfClient
                 {
                     Products.Add(new Product()
                     {
-                        ProductName = selectedProduct.ProductName
+                        ProductName = SelectedProduct.ProductName,
+                        Price = SelectedProduct.Price
 
 
                     });
@@ -199,31 +206,26 @@ namespace D46S9S_HFT_2023241.WpfClient
 
                 UpdateProductCommand = new RelayCommand(() =>
                 {
-                    try
-                    {
-                        Products.Update(selectedProduct);
+                    
+                          Products.Update(SelectedProduct);
 
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        ErrorMessage = ex.Message;
-                    }
+                    
 
                 });
 
                 DeleteProductCommand = new RelayCommand(() =>
                 {
-                    Products.Delete(selectedProduct.ProductId);
+                    Products.Delete(SelectedProduct.ProductId);
 
 
                 },
                 () =>
                 {
-                    return selectedProduct != null;
+                    return SelectedProduct != null;
 
                 });
 
-                selectedProduct = new Product();
+                SelectedProduct = new Product();
                 int i = 1;
                 
                 CreateOrderCommand = new RelayCommand(() =>
@@ -245,31 +247,26 @@ namespace D46S9S_HFT_2023241.WpfClient
 
                 UpdateOrderCommand = new RelayCommand(() =>
                 {
-                    try
-                    {
-                        Orders.Update(selectedOrder);
+                    
+                        Orders.Update(SelectedOrder);
 
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        ErrorMessage = ex.Message;
-                    }
+                    
 
                 });
 
                 DeleteOrderCommand = new RelayCommand(() =>
                 {
-                    Orders.Delete(selectedOrder.OrderId);
+                    Orders.Delete(SelectedOrder.OrderId);
 
 
                 },
                 () =>
                 {
-                    return selectedOrder != null;
+                    return SelectedOrder != null;
 
                 });
 
-                selectedOrder = new Order();
+                SelectedOrder = new Order();
 
             }
 
