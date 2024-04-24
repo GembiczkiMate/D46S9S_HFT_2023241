@@ -148,7 +148,7 @@ namespace D46S9S_HFT_2023241.WpfClient
                 Orders = new RestCollection<Order>("http://localhost:39354/", "order", "hub");
 
                 NonCrud = new RestService("http://localhost:39354/").Get<User>("NonCrud/GetMostBuysID");
-                NonCrud1 = new RestService("http://localhost:39354/").Get<Product>("NonCrud/GetMostBuysID");
+                
 
 
 

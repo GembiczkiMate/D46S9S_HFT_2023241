@@ -71,6 +71,12 @@ namespace D46S9S_HFT_2023241.Endpoint
                 await context.Response.WriteAsJsonAsync(response);
             }));
 
+            app.UseCors(x => x
+             .AllowCredentials()
+             .AllowAnyMethod()
+             .AllowAnyHeader()
+             .WithOrigins("http://localhost:18844"));
+
             app.UseRouting();
             app.UseAuthentication();
 

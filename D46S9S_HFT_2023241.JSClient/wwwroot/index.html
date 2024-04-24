@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>User UI</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <h1>Users</h1>
+
+    <div id="formdiv">
+        <label>Username</label>
+        <input type="text" id="Username" />
+        <button type="button" onclick="createU()">Create User</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultareaU">
+            <tr>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>Products</h1>
+
+    <div id="formdiv">
+        <label>ProductName</label>
+        <input type="text" id="ProductName" />
+        <label>Price</label>
+        <input type="number" id="Price" />
+        <button type="button" onclick="createP()">Create Product</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="resultareaP">
+            <tr>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

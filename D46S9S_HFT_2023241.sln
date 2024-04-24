@@ -26,7 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Others", "Others", "{E6FE62
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D46S9S_HFT_2023241.WpfClient", "D46S9S_HFT_2023241.WpfClient\D46S9S_HFT_2023241.WpfClient.csproj", "{A0B6106B-DE92-414C-B5CA-02F1E01A0955}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "D46S9S_HFT_2023241.WpfClient", "D46S9S_HFT_2023241.WpfClient\D46S9S_HFT_2023241.WpfClient.csproj", "{A0B6106B-DE92-414C-B5CA-02F1E01A0955}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "D46S9S_HFT_2023241.JSClient", "D46S9S_HFT_2023241.JSClient\D46S9S_HFT_2023241.JSClient.csproj", "{DDE04A0C-10B6-4819-B006-C81DBE1ACE75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{A0B6106B-DE92-414C-B5CA-02F1E01A0955}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0B6106B-DE92-414C-B5CA-02F1E01A0955}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0B6106B-DE92-414C-B5CA-02F1E01A0955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE04A0C-10B6-4819-B006-C81DBE1ACE75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE04A0C-10B6-4819-B006-C81DBE1ACE75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE04A0C-10B6-4819-B006-C81DBE1ACE75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE04A0C-10B6-4819-B006-C81DBE1ACE75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
