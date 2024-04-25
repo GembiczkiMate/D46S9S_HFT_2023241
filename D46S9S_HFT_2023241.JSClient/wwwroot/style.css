@@ -1,5 +1,5 @@
 ﻿table {
-    width: 50%;
+    width: 60%;
 }
 
 table, th, td {
@@ -23,7 +23,7 @@ th {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-    width:50%;
+    width:60%;
 }
 
     #formdiv label, button, input {
@@ -70,5 +70,20 @@ table button {
     }
 
     #updateformdivp label {
+        font-weight: bolder;
+    }
+#updateformdivo {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 60%;
+}
+
+    #updateformdivo label, button, input {
+        margin: 10px;
+        padding: 7px;
+    }
+
+    #updateformdivo label {
         font-weight: bolder;
     }

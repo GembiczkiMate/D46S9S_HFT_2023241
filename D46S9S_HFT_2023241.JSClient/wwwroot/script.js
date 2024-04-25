@@ -7,6 +7,7 @@ let orderToUpdate = -1;
 
 getdataU();
 getdataP();
+getdataO();
 setupSignalR();
 
 function setupSignalR() {
@@ -37,7 +38,19 @@ function setupSignalR() {
     });
 
     connection.on("ProductUpdated", (product, message) => {
-        getdatau();
+        getdataP();
+    });
+
+    connection.on("OrderCreated", (product, message) => {
+        getdataO();
+    });
+
+    connection.on("OrderDeleted", (product, message) => {
+        getdataO();
+    });
+
+    connection.on("OrderUpdated", (order, message) => {
+        getdataO();
     });
 
 
@@ -58,6 +71,9 @@ async function start() {
         setTimeout(start, 5000);
     }
 }
+
+
+
 
 async function getdataU() {
     fetch('http://localhost:39354/user')
@@ -87,14 +103,12 @@ function displayU() {
 
 }
 
-
 function showupdateU(id) {
 
     document.getElementById('updateusername').value = users.find(t => t["userId"] == id)['username'];
     document.getElementById('updateformdiv').style.display = 'flex';
     userToUpdate = id;
 }
-
 
 function updateU() {
     document.getElementById('updateformdiv').style.display = 'none';
@@ -114,7 +128,6 @@ function updateU() {
 
 
 }
-
 
 function removeU(id) {
     fetch('http://localhost:39354/user/' + id, {
@@ -191,9 +204,6 @@ function removeP(id) {
 
 }
 
-
-
-
 function createP() {
     let name = document.getElementById('ProductName').value;
     let Price = document.getElementById('Price').value;
@@ -221,7 +231,6 @@ function showupdateP(id) {
     productToUpdate = id;
 }
 
-
 function updateP() {
     document.getElementById('updateformdivp').style.display = 'none';
     let name = document.getElementById('updateproduct').value;
@@ -238,6 +247,97 @@ function updateP() {
             getdataP();
         })
         .catch((error) => { console.error('Error:', error); });
+
+
+}
+
+
+
+
+async function getdataO() {
+    fetch('http://localhost:39354/order')
+        .then(x => x.json())
+        .then(y => {
+            orders = y;
+            console.log(orders);
+            displayO();
+        });
+}
+
+function displayO() {
+    document.getElementById('resultareaO').innerHTML = "";
+    orders.forEach(t => {
+        document.getElementById('resultareaO').innerHTML +=
+            "<tr><td>" + t.orderId + " </td><td>"
+        + t.userId + "</td><td>" + t.productId + "</td><td>"       
+            + `<button type="button" onclick="removeO(${t.orderId})">Delete</button>` +
+            `<button type="button" onclick="showupdateO(${t.orderId})">Update</button>`
+            + "</td></tr>";
+
+
+    });
+
+}
+
+function removeO(id) {
+    fetch('http://localhost:39354/order/' + id, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', },
+        body: null
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getdataO();
+        })
+        .catch((error) => { console.error('Error:', error); });
+
+}
+
+function createO() {
+    let userID = document.getElementById('userID').value;
+    let productID = document.getElementById('productID').value;
+    fetch('http://localhost:39354/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { UserId: userID, ProductId: productID, orderId: orders.length+1  })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getdataO();
+        })
+        .catch((error) => { console.error('Error:', error); });
+
+
+}
+
+function showupdateO(id) {
+
+    document.getElementById('updateuserid').value = orders.find(t => t["orderId"] == id)['userId'];
+    document.getElementById('updateproductid').value = orders.find(t => t["orderId"] == id)['productId'];
+    document.getElementById('updateformdivo').style.display = 'flex';
+    orderToUpdate = id;
+}
+
+function updateO() {
+    document.getElementById('updateformdivo').style.display = 'none';
+    let userID = document.getElementById('updateuserid').value;
+    let productID = document.getElementById('updateproductid').value;
+    fetch('http://localhost:39354/order', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { UserId: userID, ProductId: productID, OrderId :orderToUpdate })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getdataO();
+        })
+        .catch((error) => { console.error('Error:', error); });
+
 
 
 }
