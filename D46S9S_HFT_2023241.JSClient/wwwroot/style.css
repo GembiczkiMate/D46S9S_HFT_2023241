@@ -39,3 +39,36 @@ table button {
     padding: 2px;
     
 }
+
+
+#updateformdiv {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+    #updateformdiv label, button, input {
+        margin: 10px;
+        padding: 7px;
+    }
+
+    #updateformdiv label {
+        font-weight: bolder;
+    }
+
+#updateformdivp {
+    display: none;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+    #updateformdivp label, button, input {
+        margin: 10px;
+        padding: 7px;
+    }
+
+    #updateformdivp label {
+        font-weight: bolder;
+    }

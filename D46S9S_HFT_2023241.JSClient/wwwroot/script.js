@@ -1,6 +1,10 @@
 ﻿let users = [];
 let products = [];
 let orders = [];
+let userToUpdate = -1;
+let productToUpdate = -1;
+let orderToUpdate = -1;
+
 getdataU();
 getdataP();
 setupSignalR();
@@ -19,6 +23,11 @@ function setupSignalR() {
         getdatau();
     });
 
+    connection.on("UserUpdated", (user, message) => {
+        getdatau();
+    });
+
+
     connection.on("ProductCreated", (product, message) => {
         getdataP();
     });
@@ -26,6 +35,11 @@ function setupSignalR() {
     connection.on("ProductDeleted", (product, message) => {
         getdataP();
     });
+
+    connection.on("ProductUpdated", (product, message) => {
+        getdatau();
+    });
+
 
     connection.onclose(async () => {
         await start();
@@ -61,7 +75,8 @@ function displayU() {
         document.getElementById('resultareaU').innerHTML +=
             "<tr><td>" + t.userId + " </td><td>"
             + t.username + "</td><td>" +
-            `<button type="button" onclick="removeU(${t.userId})">Delete</button>`
+        `<button type="button" onclick="removeU(${t.userId})">Delete</button>` +
+        `<button type="button" onclick="showupdateU(${t.userId})">Update</button>`
             + "</td></tr>";
 
 
@@ -71,6 +86,35 @@ function displayU() {
     
 
 }
+
+
+function showupdateU(id) {
+
+    document.getElementById('updateusername').value = users.find(t => t["userId"] == id)['username'];
+    document.getElementById('updateformdiv').style.display = 'flex';
+    userToUpdate = id;
+}
+
+
+function updateU() {
+    document.getElementById('updateformdiv').style.display = 'none';
+    let name = document.getElementById('updateusername').value;
+    fetch('http://localhost:39354/user', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { username: name, userId:userToUpdate })
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getdataU();
+        })
+        .catch((error) => { console.error('Error:', error); });
+
+
+}
+
 
 function removeU(id) {
     fetch('http://localhost:39354/user/' + id, {
@@ -123,7 +167,8 @@ function displayP() {
         document.getElementById('resultareaP').innerHTML +=
             "<tr><td>" + t.productId + " </td><td>"
         + t.productName + "</td><td>" + t.price +"</td><td>"
-           + `<button type="button" onclick="removeP(${t.productId})">Delete</button>`
+        + `<button type="button" onclick="removeP(${t.productId})">Delete</button>` +
+        `<button type="button" onclick="showupdateP(${t.productId})">Update</button>`
             + "</td></tr>";
 
 
@@ -157,6 +202,35 @@ function createP() {
         headers: { 'Content-Type': 'application/json', },
         body: JSON.stringify(
             { productName: name,price : Price})
+    })
+        .then(response => response)
+        .then(data => {
+            console.log('Success:', data);
+            getdataP();
+        })
+        .catch((error) => { console.error('Error:', error); });
+
+
+}
+
+function showupdateP(id) {
+
+    document.getElementById('updateproduct').value = products.find(t => t["productId"] == id)['productName'];
+    document.getElementById('updatePrice').value = products.find(t => t["productId"] == id)['price'];
+    document.getElementById('updateformdivp').style.display = 'flex';
+    productToUpdate = id;
+}
+
+
+function updateP() {
+    document.getElementById('updateformdivp').style.display = 'none';
+    let name = document.getElementById('updateproduct').value;
+    let Price = document.getElementById('updatePrice').value;
+    fetch('http://localhost:39354/product', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(
+            { productName: name, productId: productToUpdate ,price :Price })
     })
         .then(response => response)
         .then(data => {
