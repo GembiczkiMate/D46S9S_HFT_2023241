@@ -38,6 +38,6 @@
             </StackPanel>
 
         </Grid>
-        <Button Content="Back To Menu" Click="Button_Click" Margin="10" Padding="10" Grid.Row="1"></Button>
+        <Button Content="Back To Menu"  Margin="10" Padding="10" Grid.Row="1"></Button>
     </Grid>
 </Window>

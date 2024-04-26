@@ -17,15 +17,15 @@ function setupSignalR() {
         .build();
 
     connection.on("UserCreated", (user, message) => {
-        getdatau();
+        getdataU();
     });
 
     connection.on("UserDeleted", (user, message) => {
-        getdatau();
+        getdataU();
     });
 
     connection.on("UserUpdated", (user, message) => {
-        getdatau();
+        getdataU();
     });
 
 
@@ -130,18 +130,23 @@ function updateU() {
 }
 
 function removeU(id) {
-    fetch('http://localhost:39354/user/' + id, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json', },
-        body: null
-    })
-        .then(response => response)
-        .then(data => {
-            console.log('Success:', data);
-            getdataU();
-        })
-        .catch((error) => { console.error('Error:', error); });
+    for (var i in getdataO) {
+        if (i.userId == id) {
+            removeO(i.orderId);
+        }
 
+        fetch('http://localhost:39354/user/' + id, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', },
+            body: null
+        })
+            .then(response => response)
+            .then(data => {
+                console.log('Success:', data);
+                getdataU();
+            })
+            .catch((error) => { console.error('Error:', error); });
+    }
 }
 
 function createU() {
@@ -190,18 +195,24 @@ function displayP() {
 }
 
 function removeP(id) {
-    fetch('http://localhost:39354/product/' + id, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json', },
-        body: null
-    })
-        .then(response => response)
-        .then(data => {
-            console.log('Success:', data);
-            getdataP();
-        })
-        .catch((error) => { console.error('Error:', error); });
 
+    for (var i in getdataO) {
+        if (i.productId == id) {
+            removeO(i.orderId);
+        }
+
+        fetch('http://localhost:39354/product/' + id, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json', },
+            body: null
+        })
+            .then(response => response)
+            .then(data => {
+                console.log('Success:', data);
+                getdataP();
+            })
+            .catch((error) => { console.error('Error:', error); });
+    }
 }
 
 function createP() {

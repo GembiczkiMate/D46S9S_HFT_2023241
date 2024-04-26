@@ -32,14 +32,7 @@ namespace D46S9S_HFT_2023241.WpfClient
         }
         
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            NonCrud1 ncWindow = new NonCrud1();
-
-            ncWindow.Show();
-            Close();
-
-        }
+       
         
         
         

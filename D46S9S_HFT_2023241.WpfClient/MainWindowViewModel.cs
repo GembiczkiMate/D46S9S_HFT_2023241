@@ -17,7 +17,11 @@ namespace D46S9S_HFT_2023241.WpfClient
     {
 
 
-        
+       
+
+      
+
+
 
 
         public RestCollection<User> Users { get; set; }
@@ -135,7 +139,7 @@ namespace D46S9S_HFT_2023241.WpfClient
         }
 
         public List<User> NonCrud { get; set; }
-        public List<Product> NonCrud1 { get; set; }
+       
 
 
 
@@ -149,7 +153,8 @@ namespace D46S9S_HFT_2023241.WpfClient
 
                 NonCrud = new RestService("http://localhost:39354/").Get<User>("NonCrud/GetMostBuysID");
                 
-
+                
+                
 
 
 
@@ -179,7 +184,14 @@ namespace D46S9S_HFT_2023241.WpfClient
                 DeleteUserCommand = new RelayCommand(() =>
                 {
                     Users.Delete(SelectedUser.UserId);
-                    
+                    foreach (var item in Orders)
+                    {
+                        if (item.UserId==selectedUser.UserId)
+                        {
+                            Orders.Delete(item.OrderId);
+                        }
+                    }
+
 
                 },
                 () =>
@@ -216,6 +228,14 @@ namespace D46S9S_HFT_2023241.WpfClient
                 DeleteProductCommand = new RelayCommand(() =>
                 {
                     Products.Delete(SelectedProduct.ProductId);
+                    foreach (var item in Orders)
+                    {
+                        if (item.ProductId == SelectedProduct.ProductId)
+                        {
+                            Orders.Delete(item.OrderId);
+                        }
+                    }
+
 
 
                 },
@@ -257,7 +277,7 @@ namespace D46S9S_HFT_2023241.WpfClient
                 DeleteOrderCommand = new RelayCommand(() =>
                 {
                     Orders.Delete(SelectedOrder.OrderId);
-
+                    
 
                 },
                 () =>
@@ -267,6 +287,9 @@ namespace D46S9S_HFT_2023241.WpfClient
                 });
 
                 SelectedOrder = new Order();
+
+                
+                
 
             }
 

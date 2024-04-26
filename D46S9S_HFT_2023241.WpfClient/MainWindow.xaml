@@ -72,15 +72,22 @@
             <TextBox Text="{Binding SelectedOrder.UserId}" Padding="5"  />
             <Label Content="ProductID" Background="LightBlue" Padding="5" />
             <TextBox Text="{Binding SelectedOrder.ProductId}" Padding="5"  />
-            <Button Content="Create Order" Command="{Binding CreateOrderCommand}" Padding="5"  Click="Button_Click" />
+            <Button Content="Create Order" Command="{Binding CreateOrderCommand}" Padding="5"   />
             <Button Content="Delete Order" Command="{Binding DeleteOrderCommand}" Padding="5"   />
             <Button Content="Update Order" Command="{Binding UpdateOrderCommand}" Padding="5"   />
             
         </StackPanel>
 
-        <Button Grid.Column="3" Grid.Row="1" Content="Oldest Order" FontSize="20" Click="Button_Click"/>
+        
+        <StackPanel Grid.Column="3">
+            <Label Content="NonCrud 1"/>
+            <Label Content="User With Most Buys"/>
+            <Label Content="ID:"/>
+            <Label Content="{Binding NonCrud[0].UserId}"/>
+            <Label Content="Name:"/>
+            <Label Content="{Binding NonCrud[0].Username}"/>
 
-        <Border Grid.Column="3" Grid.Row="0" Background="ForestGreen"/>
+        </StackPanel>
 
 
 

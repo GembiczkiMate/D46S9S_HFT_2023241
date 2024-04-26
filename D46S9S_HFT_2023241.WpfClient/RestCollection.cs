@@ -322,7 +322,7 @@ namespace D46S9S_HFT_2023241.WpfClient
             Init();
         }
 
-        private async Task Init()
+        public async Task Init()
         {
             items = await rest.GetAsync<T>(typeof(T).Name);
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
