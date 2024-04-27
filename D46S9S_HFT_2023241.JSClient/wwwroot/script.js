@@ -130,7 +130,10 @@ function updateU() {
 }
 
 function removeU(id) {
-    
+    for (var i in getdataO) {
+        if (i.userId == id) {
+            removeO(i.orderId);
+        }
 
         fetch('http://localhost:39354/user/' + id, {
             method: 'DELETE',
@@ -143,7 +146,7 @@ function removeU(id) {
                 getdataU();
             })
             .catch((error) => { console.error('Error:', error); });
-    
+    }
 }
 
 function createU() {
@@ -192,6 +195,12 @@ function displayP() {
 }
 
 function removeP(id) {
+
+    for (var i in getdataO) {
+        if (i.productId == id) {
+            removeO(i.orderId);
+        }
+
         fetch('http://localhost:39354/product/' + id, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json', },
@@ -202,7 +211,8 @@ function removeP(id) {
                 console.log('Success:', data);
                 getdataP();
             })
-            .catch((error) => { console.error('Error:', error); });    
+            .catch((error) => { console.error('Error:', error); });
+    }
 }
 
 function createP() {
