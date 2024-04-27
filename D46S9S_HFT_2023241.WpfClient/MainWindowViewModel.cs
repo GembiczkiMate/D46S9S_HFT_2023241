@@ -184,13 +184,7 @@ namespace D46S9S_HFT_2023241.WpfClient
                 DeleteUserCommand = new RelayCommand(() =>
                 {
                     Users.Delete(SelectedUser.UserId);
-                    foreach (var item in Orders)
-                    {
-                        if (item.UserId==selectedUser.UserId)
-                        {
-                            Orders.Delete(item.OrderId);
-                        }
-                    }
+                    
 
 
                 },
@@ -228,13 +222,7 @@ namespace D46S9S_HFT_2023241.WpfClient
                 DeleteProductCommand = new RelayCommand(() =>
                 {
                     Products.Delete(SelectedProduct.ProductId);
-                    foreach (var item in Orders)
-                    {
-                        if (item.ProductId == SelectedProduct.ProductId)
-                        {
-                            Orders.Delete(item.OrderId);
-                        }
-                    }
+                    
 
 
 
