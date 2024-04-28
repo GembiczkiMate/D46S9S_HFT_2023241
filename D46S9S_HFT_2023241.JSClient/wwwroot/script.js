@@ -1,6 +1,7 @@
 ﻿let users = [];
 let products = [];
 let orders = [];
+let noncrud = [];
 let userToUpdate = -1;
 let productToUpdate = -1;
 let orderToUpdate = -1;
@@ -8,6 +9,7 @@ let orderToUpdate = -1;
 getdataU();
 getdataP();
 getdataO();
+NonCrud();
 setupSignalR();
 
 function setupSignalR() {
@@ -344,5 +346,28 @@ function updateO() {
         .catch((error) => { console.error('Error:', error); });
 
 
+
+}
+
+async function NonCrud() {
+    fetch('http://localhost:39354/NonCrud/GetDatas')
+        .then(x => x.json())
+        .then(y => {
+            noncrud = y;
+            console.log(noncrud);
+            displayN();
+        });
+}
+
+function displayN() {
+    document.getElementById('resultareaN').innerHTML = "";
+    noncrud.forEach(t => {
+        document.getElementById('resultareaN').innerHTML +=
+            "<tr><td>" + t.id + " </td><td>"
+            + t.users
+            + "</td></tr>";
+
+
+    });
 
 }

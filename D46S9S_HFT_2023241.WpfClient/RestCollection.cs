@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using D46S9S_HFT_2023241.Models;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -372,6 +373,7 @@ namespace D46S9S_HFT_2023241.WpfClient
         {
             if (hasSignalR)
             {
+
                 this.rest.PutAsync(item, typeof(T).Name);
             }
             else
@@ -391,9 +393,45 @@ namespace D46S9S_HFT_2023241.WpfClient
 
         public void Delete(int id)
         {
+            
             if (hasSignalR)
             {
-                this.rest.DeleteAsync(id, typeof(T).Name);
+
+
+
+
+
+
+                List<Order> orders = this.rest.Get<Order>("order");
+                if (typeof(T) == typeof(User))
+                {
+                    foreach (var item in orders)
+                    {
+                        if (item.UserId == id)
+                        {
+                            this.rest.DeleteAsync(item.OrderId, "order");
+                        }
+                    }
+                    this.rest.DeleteAsync(id, typeof(T).Name);
+                }
+                if (typeof(T) == typeof(Product))
+                {
+                    foreach (var item in orders)
+                    {
+                        if (item.ProductId == id)
+                        {
+                            this.rest.DeleteAsync(item.OrderId, "order");
+                        }
+                    }
+                    this.rest.DeleteAsync(id, typeof(T).Name);
+                }
+                if (typeof(T)==typeof(Order))
+                {
+                    this.rest.DeleteAsync(id, typeof(T).Name);
+                }
+                
+
+
             }
             else
             {
@@ -410,6 +448,12 @@ namespace D46S9S_HFT_2023241.WpfClient
             }
 
         }
+
+
+
+
+
+
 
 
     }

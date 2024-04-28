@@ -234,8 +234,8 @@ namespace D46S9S_HFT_2023241.WpfClient
                 });
 
                 SelectedProduct = new Product();
-                int i = 1;
-                
+
+               
                 CreateOrderCommand = new RelayCommand(() =>
                 {
                     
@@ -243,13 +243,13 @@ namespace D46S9S_HFT_2023241.WpfClient
                     {
                         ProductId = selectedOrder.ProductId,
                         UserId = selectedOrder.UserId,
-                        OrderId = Orders.Count()+i,                       
+                        OrderId= Orders.Last().OrderId+1,
                         OrderDate = DateTime.Now
 
 
 
-                    });
-                    i++;
+                    }); ;
+                    
 ;
                 });
 
