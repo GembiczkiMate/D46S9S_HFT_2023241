@@ -207,6 +207,10 @@ namespace D46S9S_HFT_2023241.WpfClient
                 var error = response.Content.ReadAsAsync<RestExceptionInfo>().GetAwaiter().GetResult();
                 throw new ArgumentException(error.Msg);
             }
+            else
+            {
+                
+            }
 
             response.EnsureSuccessStatusCode();
         }
