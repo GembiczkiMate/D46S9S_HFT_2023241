@@ -66,7 +66,7 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
 
             this.logic.Delete(id);
             this.hub.Clients.All.SendAsync("UserDeleted", userToDelete);
-            this.hub.Clients.All.SendAsync("OrderDeleted", null);
+            this.hub.Clients.All.SendAsync("OrderDeleted", new Order());
 
         }
     }
