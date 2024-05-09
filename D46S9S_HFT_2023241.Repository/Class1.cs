@@ -16,26 +16,46 @@ namespace D46S9S_HFT_2023241.Repository
         public OrderDB()
         {
 
-            this.Database.EnsureCreated();
+            try
+            {
+                this.Database.EnsureCreated();
+            }
+            catch { }
         }
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
             if (!builder.IsConfigured)
             {
-                //string conn = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Gembiczki Máté\Source\Repos\D46S9S_HFT_2023241\D46S9S_HFT_2023241.Repository\Database1.mdf;Integrated Security=True;MultipleActiveResultSets = true";
-                builder
-                .UseInMemoryDatabase("mydb").UseLazyLoadingProxies();
+               builder
+                .UseSqlite("Data Source = data.db");
             }
             
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Order>(order => order
-            .HasOne(order => order.User).WithMany(users=>users.Orders).HasForeignKey(order => order.OrderId).OnDelete(DeleteBehavior.Cascade));
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany(u => u.Orders)
+                .HasForeignKey(o => o.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Products)
+                .WithMany()
+                .HasForeignKey(o => o.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Order>(order => order
-            .HasOne(order=>order.Products).WithMany(products=> products.Orders).HasForeignKey(order => order.ProductId).OnDelete(DeleteBehavior.Cascade));
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Orders)
+                .WithOne(o => o.User)
+                .HasForeignKey(o => o.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.Orders)
+                .WithOne(o => o.Products)
+                .HasForeignKey(o => o.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Order>().HasData(new Order[]
             {
