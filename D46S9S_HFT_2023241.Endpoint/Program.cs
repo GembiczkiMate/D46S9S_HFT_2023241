@@ -15,7 +15,7 @@ namespace D46S9S_HFT_2023241.Endpoint
         public static void Main(string[] args)
         {
             string directory = Directory.GetCurrentDirectory();
-            string fileName = "Test1.db";
+            string fileName = "data.db";
             string filePath = Path.Combine(directory, fileName);
 
             if (File.Exists(filePath))
