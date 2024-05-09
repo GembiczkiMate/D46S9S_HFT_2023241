@@ -302,7 +302,10 @@ namespace D46S9S_HFT_2023241.WpfClient
                 this.notify.AddHandler<T>(type.Name + "Created", (T item) =>
                 {
                     items.Add(item);
-                    CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                    });
                 });
                 this.notify.AddHandler<T>(type.Name + "Deleted", (T item) =>
                 {

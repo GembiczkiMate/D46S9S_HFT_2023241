@@ -143,7 +143,7 @@ function removeU(id) {
             .then(data => {
                 console.log('Success:', data);
                 getdataU();
-                
+                getdataO();
                 
 
                 ;
