@@ -281,7 +281,7 @@ namespace D46S9S_HFT_2023241.WpfClient
 
     }
 
-    public class RestCollection<T> : INotifyCollectionChanged, IEnumerable<T>,IRefreshable
+    public class RestCollection<T> : INotifyCollectionChanged, IEnumerable<T>
     {
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
@@ -290,7 +290,7 @@ namespace D46S9S_HFT_2023241.WpfClient
         List<T> items;
         bool hasSignalR;
         Type type = typeof(T);
-        IEnumerable<IRefreshable> _depe;
+    
 
         public RestCollection(string baseurl, string endpoint, string hub = null)
         {
@@ -421,33 +421,7 @@ namespace D46S9S_HFT_2023241.WpfClient
 
 
 
-                //List<Order> orders = this.rest.Get<Order>("order");
-                //if (typeof(T) == typeof(User))
-                //{
-                //    foreach (var item in orders)
-                //    {
-                //        if (item.UserId == id)
-                //        {
-                //            this.rest.DeleteAsync(item.OrderId, "order");
-                //        }
-                //    }
-                //    this.rest.DeleteAsync(id, typeof(T).Name);
-                //}
-                //if (typeof(T) == typeof(Product))
-                //{
-                //    foreach (var item in orders)
-                //    {
-                //        if (item.ProductId == id)
-                //        {
-                //            this.rest.DeleteAsync(item.OrderId, "order");
-                //        }
-                //    }
-                //    this.rest.DeleteAsync(id, typeof(T).Name);
-                //}
-                //if (typeof(T)==typeof(Order))
-                //{
-                //    this.rest.DeleteAsync(id, typeof(T).Name);
-                //}
+                
                 
 
 
