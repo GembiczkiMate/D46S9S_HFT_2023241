@@ -144,6 +144,10 @@ function removeU(id) {
                 console.log('Success:', data);
                 getdataU();
                 
+                
+
+                ;
+                
             })
             .catch((error) => { console.error('Error:', error); });
     
@@ -207,7 +211,7 @@ function removeP(id) {
             .then(data => {
                 console.log('Success:', data);
                 getdataP();
-                
+                getdataO();
             })
             .catch((error) => { console.error('Error:', error); });
     
@@ -298,6 +302,7 @@ function removeO(id) {
         .then(data => {
             console.log('Success:', data);
             getdataO();
+            
         })
         .catch((error) => { console.error('Error:', error); });
 

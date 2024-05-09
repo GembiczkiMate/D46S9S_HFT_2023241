@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,7 +16,9 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
     public class UserController : ControllerBase
     {
         IUserLogic logic;
+        IOrderLogic order;
         IHubContext<SignalRHub> hub;
+        OrderController orderController;
 
         public UserController(IUserLogic logic, IHubContext<SignalRHub> hub)
         {
@@ -59,8 +62,12 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         public void Delete(int id)
         {
             var userToDelete = this.logic.Read(id);
+            
+
             this.logic.Delete(id);
             this.hub.Clients.All.SendAsync("UserDeleted", userToDelete);
+            this.hub.Clients.All.SendAsync("OrderDeleted", null);
+
         }
     }
 }

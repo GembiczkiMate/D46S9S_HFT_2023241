@@ -147,9 +147,9 @@ namespace D46S9S_HFT_2023241.WpfClient
         {
             if (!IsInDesignMode)
             {
-                Users = new RestCollection<User>("http://localhost:39354/", "user", "hub");
-                Products = new RestCollection<Product>("http://localhost:39354/", "product", "hub");
-                Orders = new RestCollection<Order>("http://localhost:39354/", "order", "hub");
+                Users = new RestCollection<User>("http://localhost:39354/", "User", "hub");
+                Products = new RestCollection<Product>("http://localhost:39354/", "Product", "hub");
+                Orders = new RestCollection<Order>("http://localhost:39354/", "Order", "hub");
 
                 NonCrud = new RestService("http://localhost:39354/").Get<User>("NonCrud/GetMostBuysID");
                 

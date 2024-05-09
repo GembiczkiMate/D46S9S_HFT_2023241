@@ -1,5 +1,6 @@
 ﻿using D46S9S_HFT_2023241.Logic;
 using D46S9S_HFT_2023241.Models;
+
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.SignalR;
@@ -15,7 +16,9 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
     public class ProductController : ControllerBase
     {
         IProductLogic logic;
+        IOrderLogic orderLogic;
         IHubContext<SignalRHub> hub;
+        OrderController order;
 
         public ProductController(IProductLogic logic, IHubContext<SignalRHub> hub)
         {
@@ -59,8 +62,10 @@ namespace D46S9S_HFT_2023241.Endpoint.Controllers
         {
 
             var productToDelete = this.logic.Read(id);
+            
             this.logic.Delete(id);
             this.hub.Clients.All.SendAsync("ProductDeleted", productToDelete);
+            this.hub.Clients.All.SendAsync("OrderDeleted", null);
         }
     }
 }
